@@ -77,20 +77,51 @@ class AssetIngestionService
             'path'      => $storedPath,
         ];
 
-        if ($existing) {
-            $existing->update($payload);
-            $asset = $existing;
-            $status = 'updated';
-        } else {
-            $asset = Asset::create($payload);
-            $status = 'created';
+        try {
+            if ($existing) {
+                $existing->update($payload);
+                $asset = $existing;
+                $status = 'updated';
+            } else {
+                $asset = Asset::create($payload);
+                $status = 'created';
+            }
+
+            $this->mapDirectories($asset, $directoryId, $extraDirectoryNames);
+        } catch (\Throwable $e) {
+            if (! $existing) {
+                $this->discardStoredFile($storedPath);
+            }
+
+            throw $e;
         }
 
-        $this->mapDirectories($asset, $directoryId, $extraDirectoryNames);
-
-        ProcessAssetUpload::dispatch($asset->id, null, $autoTag, userId: auth()->id());
+        ProcessAssetUpload::dispatch($asset->id, null, $autoTag, userId: auth()->id())->afterCommit();
 
         return new IngestResult($status, $asset);
+    }
+
+    /**
+     * Remove a file this service stored, with its derivatives, after the row
+     * that created it failed.
+     */
+    public function discardStoredFile(string $path): void
+    {
+        $disk = Directory::getAssetDisk();
+
+        Storage::disk($disk)->delete($path);
+        AssetHelper::clearDerivatives($path, $disk);
+    }
+
+    /**
+     * Forget the directory ids resolved so far, after a rolled-back row may
+     * have removed directories that were created inside its transaction.
+     */
+    public function forgetResolvedDirectories(): void
+    {
+        if (isset($this->pathResolver)) {
+            $this->pathResolver->forget();
+        }
     }
 
     protected function makeUploadedFile(string $localPath, string $originalName): UploadedFile

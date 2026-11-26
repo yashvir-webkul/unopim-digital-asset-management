@@ -49,6 +49,18 @@ class AssetPathResolver
         return $this->resolveSegments($segments);
     }
 
+    /**
+     * Drop cached directory ids, so a directory rolled back with a failed row is
+     * looked up (and created) again. Created ids are kept: a rolled-back id is
+     * never reused, and committed ones still need the permission bypass.
+     */
+    public function forget(): void
+    {
+        $this->cache = [];
+        $this->baseDirectory = null;
+        $this->baseResolved = false;
+    }
+
     public function wasCreated(int $directoryId): bool
     {
         return isset($this->createdDirectoryIds[$directoryId]);

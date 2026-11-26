@@ -4,6 +4,7 @@ namespace Webkul\DAM\Helpers\Importers\Asset;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +25,7 @@ use Webkul\DAM\Repositories\AssetTagRepository;
 use Webkul\DAM\Services\AssetIngestionService;
 use Webkul\DAM\Services\AssetPathResolver;
 use Webkul\DAM\Services\DirectoryPermissionService;
+use Webkul\DAM\Services\IngestResult;
 use Webkul\DAM\Services\RemoteMediaDownloader;
 use Webkul\DataTransfer\Contracts\JobTrackBatch as JobTrackBatchContract;
 use Webkul\DataTransfer\Helpers\Import;
@@ -238,18 +240,16 @@ class Importer extends AbstractImporter
                 }
 
                 if ($existing && $conflictStrategy === 'update_metadata') {
-                    $result = $this->ingestionService->ingest(
+                    $result = $this->ingestRow(fn () => $this->ingestionService->ingest(
                         localPath: '',
                         damPath: $damPath,
                         fileName: $fileName,
                         conflictStrategy: 'update_metadata',
                         autoTag: $autoTag,
                         extraDirectoryNames: $extraDirectories,
-                    );
+                    ), $rowData);
 
                     if ($result->asset) {
-                        $this->applyTags($result->asset, $rowData);
-                        $this->applyProperties($result->asset, $rowData);
                         $this->updatedItemsCount++;
                     }
 
@@ -269,21 +269,18 @@ class Importer extends AbstractImporter
                     continue;
                 }
 
-                $result = $this->ingestionService->ingest(
+                $result = $this->ingestRow(fn () => $this->ingestionService->ingest(
                     localPath: $localPath,
                     damPath: $damPath,
                     fileName: $fileName,
                     conflictStrategy: $conflictStrategy,
                     autoTag: $autoTag,
                     extraDirectoryNames: $extraDirectories,
-                );
+                ), $rowData);
 
                 if ($result->status === 'skipped' || ! $result->asset) {
                     continue;
                 }
-
-                $this->applyTags($result->asset, $rowData);
-                $this->applyProperties($result->asset, $rowData);
 
                 if ($result->status === 'created') {
                     $this->createdItemsCount++;
@@ -317,6 +314,39 @@ class Importer extends AbstractImporter
 
         if ($skippedCount > 0) {
             $this->logSkipSummary($batch->id, $skippedCount);
+        }
+    }
+
+    /**
+     * Ingest one row and apply its tags and properties as a single unit: when any
+     * step fails the database work is rolled back and a newly stored file is
+     * removed, so a failed row leaves nothing behind and can be imported again.
+     *
+     * @param  callable(): IngestResult  $ingest
+     */
+    protected function ingestRow(callable $ingest, array $rowData): IngestResult
+    {
+        $result = null;
+
+        try {
+            return DB::transaction(function () use ($ingest, $rowData, &$result): IngestResult {
+                $result = $ingest();
+
+                if ($result->status !== 'skipped' && $result->asset) {
+                    $this->applyTags($result->asset, $rowData);
+                    $this->applyProperties($result->asset, $rowData);
+                }
+
+                return $result;
+            });
+        } catch (\Throwable $e) {
+            if ($result?->status === 'created' && $result->asset) {
+                $this->ingestionService->discardStoredFile($result->asset->path);
+            }
+
+            $this->ingestionService->forgetResolvedDirectories();
+
+            throw $e;
         }
     }
 
