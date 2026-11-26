@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Il caricamento di file di script non è consentito.',
                     'copy-success'                              => 'Cartella copiata con successo.',
                     'name-unique'                               => 'Il nome della directory deve essere univoco nella stessa directory padre.',
+                    'name-reserved'                             => 'Il nome della directory non può essere "." o "..".',
                     'folder-upload-success'                     => 'Cartella caricata con successo.',
                     'folder-upload-partial'                     => 'Cartella caricata con :count file saltati a causa di errori.',
                     'load-more'                                 => 'Carica altro',

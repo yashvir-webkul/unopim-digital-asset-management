@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Przesyłanie plików skryptów jest niedozwolone.',
                     'copy-success'                              => 'Folder skopiowany pomyślnie.',
                     'name-unique'                               => 'Nazwa katalogu musi być unikalna w tym samym katalogu nadrzędnym.',
+                    'name-reserved'                             => 'Nazwa katalogu nie może być "." ani "..".',
                     'folder-upload-success'                     => 'Folder przesłany pomyślnie.',
                     'folder-upload-partial'                     => 'Folder przesłany z :count plikiem(ami) pominiętym(i) z powodu błędów.',
                     'load-more'                                 => 'Załaduj więcej',

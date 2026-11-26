@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Prijenos skriptnih datoteka nije dopušten.',
                     'copy-success'                              => 'Mapa je uspješno kopirana.',
                     'name-unique'                               => 'Naziv direktorija mora biti jedinstven unutar istog nadređenog direktorija.',
+                    'name-reserved'                             => 'Naziv direktorija ne može biti "." ili "..".',
                     'folder-upload-success'                     => 'Mapa uspješno učitana.',
                     'folder-upload-partial'                     => 'Mapa učitana s :count datotekom/datotekama preskočenim zbog pogrešaka.',
                     'load-more'                                 => 'Učitaj više',

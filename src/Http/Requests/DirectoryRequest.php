@@ -17,6 +17,7 @@ class DirectoryRequest extends FormRequest
                 'string',
                 'max:255',
                 'regex:/^[^\\/\\\:\*\?\"\<\>\|]+$/',
+                Rule::notIn(['.', '..']),
                 Rule::unique('dam_directories')->where(function ($query) {
                     return $query->where('parent_id', $this->input('parent_id', 1));
                 })
@@ -30,6 +31,7 @@ class DirectoryRequest extends FormRequest
     {
         return [
             'name.unique' => trans('dam::app.admin.dam.index.directory.name-unique'),
+            'name.not_in' => trans('dam::app.admin.dam.index.directory.name-reserved'),
         ];
     }
 }

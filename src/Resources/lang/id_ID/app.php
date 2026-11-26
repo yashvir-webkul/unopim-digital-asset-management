@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Unggah file skrip tidak diperbolehkan.',
                     'copy-success'                              => 'Folder berhasil disalin.',
                     'name-unique'                               => 'Nama direktori harus unik dalam direktori induk yang sama.',
+                    'name-reserved'                             => 'Nama direktori tidak boleh "." atau "..".',
                     'folder-upload-success'                     => 'Folder berhasil diunggah.',
                     'folder-upload-partial'                     => 'Folder diunggah dengan :count file dilewati karena kesalahan.',
                     'load-more'                                 => 'Muat lebih banyak',

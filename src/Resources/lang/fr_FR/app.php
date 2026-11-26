@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Le téléchargement de fichiers de script n\'est pas autorisé.',
                     'copy-success'                              => 'Dossier copié avec succès.',
                     'name-unique'                               => 'Le nom du répertoire doit être unique dans le même répertoire parent.',
+                    'name-reserved'                             => 'Le nom du répertoire ne peut pas être « . » ou « .. ».',
                     'folder-upload-success'                     => 'Dossier téléchargé avec succès.',
                     'folder-upload-partial'                     => 'Dossier téléchargé avec :count fichier(s) ignoré(s) en raison d\'erreurs.',
                     'load-more'                                 => 'Charger plus',

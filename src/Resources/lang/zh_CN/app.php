@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => '不允许上传脚本文件。',
                     'copy-success'                              => '文件夹复制成功。',
                     'name-unique'                               => '目录名称在同一父目录中必须唯一。',
+                    'name-reserved'                             => '目录名称不能为“.”或“..”。',
                     'folder-upload-success'                     => '文件夹上传成功。',
                     'folder-upload-partial'                     => '文件夹已上传，由于错误跳过了 :count 个文件。',
                     'load-more'                                 => '加载更多',

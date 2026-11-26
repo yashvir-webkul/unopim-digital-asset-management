@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Încărcarea fișierelor de tip script nu este permisă.',
                     'copy-success'                              => 'Dosarul a fost copiat cu succes.',
                     'name-unique'                               => 'Numele directorului trebuie să fie unic în același director părinte.',
+                    'name-reserved'                             => 'Numele directorului nu poate fi „.” sau „..”.',
                     'folder-upload-success'                     => 'Folder încărcat cu succes.',
                     'folder-upload-partial'                     => 'Folder încărcat cu :count fișier(e) omise din cauza erorilor.',
                     'load-more'                                 => 'Încarcă mai multe',

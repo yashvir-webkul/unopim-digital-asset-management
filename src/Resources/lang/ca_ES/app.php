@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'No es permet la pujada de fitxers d\'script.',
                     'copy-success'                              => 'Carpeta copiada correctament.',
                     'name-unique'                               => 'El nom del directori ha de ser únic dins del mateix directori pare.',
+                    'name-reserved'                             => 'El nom del directori no pot ser "." ni "..".',
                     'folder-upload-success'                     => 'Carpeta pujada correctament.',
                     'folder-upload-partial'                     => 'Carpeta pujada amb :count fitxer(s) omès(os) a causa d\'errors.',
                     'load-more'                                 => 'Carrega\'n més',

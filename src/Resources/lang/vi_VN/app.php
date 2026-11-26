@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Không cho phép tải lên các tệp script.',
                     'copy-success'                              => 'Sao chép thư mục thành công.',
                     'name-unique'                               => 'Tên thư mục phải là duy nhất trong cùng một thư mục cha.',
+                    'name-reserved'                             => 'Tên thư mục không được là "." hoặc "..".',
                     'folder-upload-success'                     => 'Thư mục đã được tải lên thành công.',
                     'folder-upload-partial'                     => 'Thư mục đã được tải lên với :count tệp bị bỏ qua do lỗi.',
                     'load-more'                                 => 'Tải thêm',

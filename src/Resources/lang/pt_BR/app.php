@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'O envio de arquivos de script não é permitido.',
                     'copy-success'                              => 'Pasta copiada com sucesso.',
                     'name-unique'                               => 'O nome do diretório deve ser único dentro do mesmo diretório pai.',
+                    'name-reserved'                             => 'O nome do diretório não pode ser "." ou "..".',
                     'folder-upload-success'                     => 'Pasta enviada com sucesso.',
                     'folder-upload-partial'                     => 'Pasta enviada com :count arquivo(s) ignorado(s) devido a erros.',
                     'load-more'                                 => 'Carregar mais',

@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Uppladdning av skriptfiler är inte tillåten.',
                     'copy-success'                              => 'Mappen kopierades.',
                     'name-unique'                               => 'Mappnamnet måste vara unikt inom samma överordnade mapp.',
+                    'name-reserved'                             => 'Katalognamnet får inte vara "." eller "..".',
                     'folder-upload-success'                     => 'Mapp uppladdad.',
                     'folder-upload-partial'                     => 'Mapp uppladdad med :count fil(er) hoppat över på grund av fel.',
                     'load-more'                                 => 'Läs in fler',

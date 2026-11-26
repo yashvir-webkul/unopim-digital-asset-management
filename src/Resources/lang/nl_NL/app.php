@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Het uploaden van scriptbestanden is niet toegestaan.',
                     'copy-success'                              => 'Map succesvol gekopieerd.',
                     'name-unique'                               => 'De mapnaam moet uniek zijn binnen dezelfde bovenliggende map.',
+                    'name-reserved'                             => 'De mapnaam mag niet "." of ".." zijn.',
                     'folder-upload-success'                     => 'Map succesvol geüpload.',
                     'folder-upload-partial'                     => 'Map geüpload met :count bestand(en) overgeslagen wegens fouten.',
                     'load-more'                                 => 'Meer laden',

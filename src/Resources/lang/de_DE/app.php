@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Das Hochladen von Skriptdateien ist nicht erlaubt.',
                     'copy-success'                              => 'Ordner erfolgreich kopiert.',
                     'name-unique'                               => 'Der Verzeichnisname muss im selben übergeordneten Verzeichnis eindeutig sein.',
+                    'name-reserved'                             => 'Der Verzeichnisname darf nicht "." oder ".." sein.',
                     'folder-upload-success'                     => 'Ordner erfolgreich hochgeladen.',
                     'folder-upload-partial'                     => 'Ordner hochgeladen, :count Datei(en) aufgrund von Fehlern übersprungen.',
                     'load-more'                                 => 'Mehr laden',

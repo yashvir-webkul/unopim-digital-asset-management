@@ -4,8 +4,10 @@ namespace Webkul\DAM\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Core\Eloquent\Repository;
+use Webkul\DAM\Models\Asset;
 use Webkul\DAM\Models\Directory;
 use Webkul\DAM\Services\DirectoryPermissionService;
 
@@ -121,6 +123,12 @@ class DirectoryRepository extends Repository
             $newDirectory = sprintf('%s/%s', Directory::ASSETS_DIRECTORY, $newPath);
             $disk = Directory::getAssetDisk();
 
+            if (self::hasDotSegment($newPath)) {
+                Log::warning('DAM: skipped storage for a directory path with a "." or ".." segment.', ['path' => $newPath]);
+
+                return;
+            }
+
             if (! $oldPath) {
                 Storage::disk($disk)->makeDirectory($newDirectory);
 
@@ -128,6 +136,12 @@ class DirectoryRepository extends Repository
             }
 
             $oldDirectory = sprintf('%s/%s', Directory::ASSETS_DIRECTORY, $oldPath);
+
+            if (self::hasDotSegment($oldPath)) {
+                $this->moveLegacyDotDirectoryAssets($disk, $oldDirectory, $newDirectory);
+
+                return;
+            }
 
             if ($disk === Directory::ASSETS_DISK_AWS) {
                 Storage::disk($disk)->deleteDirectory($oldDirectory);
@@ -151,9 +165,45 @@ class DirectoryRepository extends Repository
         $directory = sprintf('%s/%s', Directory::ASSETS_DIRECTORY, $path);
         $disk = Directory::getAssetDisk();
 
+        if (self::hasDotSegment($path)) {
+            Log::warning('DAM: refused to delete storage for a directory path with a "." or ".." segment.', ['path' => $path]);
+
+            return;
+        }
+
         if (Storage::disk($disk)->exists($directory)) {
             Storage::disk($disk)->deleteDirectory($directory);
         }
+    }
+
+    /**
+     * Whether a relative directory path has a "." or ".." segment, which the filesystem resolves to the directory itself or its parent.
+     */
+    public static function hasDotSegment(?string $path): bool
+    {
+        return array_any(
+            explode('/', str_replace('\\', '/', (string) $path)),
+            fn (string $segment): bool => $segment === '.' || $segment === '..',
+        );
+    }
+
+    /**
+     * A legacy "."/".." directory has no storage folder of its own: its files sit in the folder the segment resolves to,
+     * so move only this directory's asset files rather than that whole folder.
+     */
+    protected function moveLegacyDotDirectoryAssets(string $disk, string $oldDirectory, string $newDirectory): void
+    {
+        Storage::disk($disk)->makeDirectory($newDirectory);
+
+        Asset::where('path', 'like', str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $oldDirectory).'/%')
+            ->pluck('path')
+            ->each(function (string $path) use ($disk, $oldDirectory, $newDirectory): void {
+                $target = $newDirectory.substr($path, strlen($oldDirectory));
+
+                if (Storage::disk($disk)->exists($path) && ! Storage::disk($disk)->exists($target)) {
+                    Storage::disk($disk)->move($path, $target);
+                }
+            });
     }
 
     public function copyDirectoryWithStorage($newPath, $oldPath)

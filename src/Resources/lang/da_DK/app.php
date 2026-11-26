@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Det er ikke tilladt at uploade scriptfiler.',
                     'copy-success'                              => 'Mappen er kopieret.',
                     'name-unique'                               => 'Mappenavnet skal være unikt i samme overordnede mappe.',
+                    'name-reserved'                             => 'Mappenavnet må ikke være "." eller "..".',
                     'folder-upload-success'                     => 'Mappe uploadet.',
                     'folder-upload-partial'                     => 'Mappe uploadet med :count fil(er) sprunget over på grund af fejl.',
                     'load-more'                                 => 'Indlæs flere',

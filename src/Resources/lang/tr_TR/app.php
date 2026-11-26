@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Betik dosyaları yüklemeye izin verilmiyor.',
                     'copy-success'                              => 'Klasör başarıyla kopyalandı.',
                     'name-unique'                               => 'Dizin adı, aynı üst dizin içinde benzersiz olmalıdır.',
+                    'name-reserved'                             => 'Dizin adı "." veya ".." olamaz.',
                     'folder-upload-success'                     => 'Klasör başarıyla yüklendi.',
                     'folder-upload-partial'                     => 'Klasör yüklendi, :count dosya hata nedeniyle atlandı.',
                     'load-more'                                 => 'Daha fazla yükle',

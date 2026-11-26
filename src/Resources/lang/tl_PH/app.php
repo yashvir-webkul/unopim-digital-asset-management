@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Hindi pinapayagan ang pag-upload ng mga script file.',
                     'copy-success'                              => 'Matagumpay na nakopya ang folder.',
                     'name-unique'                               => 'Ang pangalan ng direktoryo ay dapat natatangi sa loob ng parehong parent na direktoryo.',
+                    'name-reserved'                             => 'Hindi maaaring "." o ".." ang pangalan ng direktoryo.',
                     'folder-upload-success'                     => 'Matagumpay na na-upload ang folder.',
                     'folder-upload-partial'                     => 'Na-upload ang folder na may :count file(s) na nilaktawan dahil sa mga error.',
                     'load-more'                                 => 'Mag-load pa',

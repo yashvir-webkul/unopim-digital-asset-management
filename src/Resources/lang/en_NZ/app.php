@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Uploading script files is not allowed.',
                     'copy-success'                              => 'Folder copied successfully.',
                     'name-unique'                               => 'The directory name must be unique within the same parent directory.',
+                    'name-reserved'                             => 'The directory name cannot be "." or "..".',
                     'folder-upload-success'                     => 'Folder uploaded successfully.',
                     'folder-upload-partial'                     => 'Folder uploaded with :count file(s) skipped due to errors.',
                     'load-more'                                 => 'Load more',

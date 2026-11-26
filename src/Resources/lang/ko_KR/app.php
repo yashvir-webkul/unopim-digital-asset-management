@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => '스크립트 파일 업로드는 허용되지 않습니다.',
                     'copy-success'                              => '폴더가 성공적으로 복사되었습니다.',
                     'name-unique'                               => '디렉토리 이름은 동일한 상위 디렉토리 내에서 고유해야 합니다.',
+                    'name-reserved'                             => '디렉터리 이름은 "." 또는 ".."일 수 없습니다.',
                     'folder-upload-success'                     => '폴더가 성공적으로 업로드되었습니다.',
                     'folder-upload-partial'                     => '폴더가 업로드되었습니다. 오류로 인해 :count개의 파일이 건너뛰어졌습니다.',
                     'load-more'                                 => '더 보기',

@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Opplasting av skriptfiler er ikke tillatt.',
                     'copy-success'                              => 'Mappen er kopiert.',
                     'name-unique'                               => 'Mappenavnet må være unikt i samme overordnede mappe.',
+                    'name-reserved'                             => 'Mappenavnet kan ikke være "." eller "..".',
                     'folder-upload-success'                     => 'Mappe lastet opp.',
                     'folder-upload-partial'                     => 'Mappe lastet opp med :count fil(er) hoppet over på grunn av feil.',
                     'load-more'                                 => 'Last inn flere',

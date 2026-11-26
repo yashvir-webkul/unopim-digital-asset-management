@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => '不允許上傳指令碼檔案。',
                     'copy-success'                              => '資料夾複製成功。',
                     'name-unique'                               => '目錄名稱在同一父目錄中必須唯一。',
+                    'name-reserved'                             => '目錄名稱不能為「.」或「..」。',
                     'folder-upload-success'                     => '資料夾上傳成功。',
                     'folder-upload-partial'                     => '資料夾已上傳，由於錯誤跳過了 :count 個檔案。',
                     'load-more'                                 => '載入更多',

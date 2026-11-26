@@ -156,3 +156,10 @@ it('returns 403 when deleting a denied directory via api', function () {
         ->deleteJson(route('admin.api.dam.directory.delete', $denied->id))
         ->assertStatus(403);
 });
+
+it('refuses "." and ".." as a directory name via api', function (string $name) {
+    $this->withHeaders($this->headers)
+        ->postJson(route('admin.api.dam.directory.store'), ['name' => $name, 'parent_id' => 1])
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['name']);
+})->with(['.', '..']);

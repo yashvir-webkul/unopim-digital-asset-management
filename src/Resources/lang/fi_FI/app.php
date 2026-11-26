@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'Komentosarjatiedostojen lähettäminen ei ole sallittua.',
                     'copy-success'                              => 'Kansio kopioitu onnistuneesti.',
                     'name-unique'                               => 'Hakemiston nimen on oltava yksilöllinen samassa ylähakemistossa.',
+                    'name-reserved'                             => 'Kansion nimi ei voi olla "." tai "..".',
                     'folder-upload-success'                     => 'Kansio ladattu onnistuneesti.',
                     'folder-upload-partial'                     => 'Kansio ladattu, :count tiedosto(a) ohitettu virheiden vuoksi.',
                     'load-more'                                 => 'Lataa lisää',

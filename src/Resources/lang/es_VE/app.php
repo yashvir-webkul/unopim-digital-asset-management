@@ -158,6 +158,7 @@ return [
                     'not-allowed'                               => 'No se permite la carga de archivos de script.',
                     'copy-success'                              => 'Carpeta copiada correctamente.',
                     'name-unique'                               => 'El nombre del directorio debe ser único dentro del mismo directorio padre.',
+                    'name-reserved'                             => 'El nombre del directorio no puede ser "." ni "..".',
                     'folder-upload-success'                     => 'Carpeta subida exitosamente.',
                     'folder-upload-partial'                     => 'Carpeta subida con :count archivo(s) omitido(s) debido a errores.',
                     'load-more'                                 => 'Cargar más',
