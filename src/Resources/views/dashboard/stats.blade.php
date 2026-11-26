@@ -9,11 +9,13 @@
         $damMaxType = max(1, collect($damTypes)->max('count'));
 
         $damTypeMeta = [
-            'image'    => ['label' => trans('dam::app.dashboard.types.image'),    'bar' => 'bg-primary-600', 'dot' => 'bg-primary-600'],
-            'video'    => ['label' => trans('dam::app.dashboard.types.video'),    'bar' => 'bg-primary-500', 'dot' => 'bg-primary-500'],
-            'audio'    => ['label' => trans('dam::app.dashboard.types.audio'),    'bar' => 'bg-primary-400', 'dot' => 'bg-primary-400'],
-            'document' => ['label' => trans('dam::app.dashboard.types.document'), 'bar' => 'bg-primary-300', 'dot' => 'bg-primary-300'],
+            'image'    => ['label' => trans('dam::app.dashboard.types.image'),    'color' => 'rgb(var(--c-primary-600))'],
+            'video'    => ['label' => trans('dam::app.dashboard.types.video'),    'color' => 'rgb(var(--c-primary-500))'],
+            'audio'    => ['label' => trans('dam::app.dashboard.types.audio'),    'color' => 'rgb(var(--c-primary-400))'],
+            'document' => ['label' => trans('dam::app.dashboard.types.document'), 'color' => 'rgb(var(--c-primary-300))'],
         ];
+
+        $damFallbackColor = 'rgb(161 161 170)';
     @endphp
 
     <div class="flex items-center justify-between gap-3 mt-4 mb-4">
@@ -31,7 +33,7 @@
 
             <div class="flex flex-col gap-3">
                 @foreach ($damTypes as $type)
-                    @php $meta = $damTypeMeta[$type['type']] ?? ['label' => ucfirst($type['type']), 'bar' => 'bg-zinc-400']; @endphp
+                    @php $meta = $damTypeMeta[$type['type']] ?? ['label' => ucfirst($type['type']), 'color' => $damFallbackColor]; @endphp
                     <div>
                         <div class="flex items-center justify-between text-sm mb-1">
                             <span class="text-zinc-600 dark:text-slate-300">{{ $meta['label'] }}</span>
@@ -42,8 +44,8 @@
                         </div>
                         <div class="w-full h-2 rounded-full bg-zinc-100 dark:bg-cherry-800 overflow-hidden">
                             <div
-                                class="h-full rounded-full {{ $meta['bar'] }}"
-                                style="width: {{ $type['count'] > 0 ? max(4, round($type['count'] / $damMaxType * 100)) : 0 }}%"
+                                class="h-full rounded-full"
+                                style="width: {{ $type['count'] > 0 ? max(4, round($type['count'] / $damMaxType * 100)) : 0 }}%; background-color: {{ $meta['color'] }}"
                             ></div>
                         </div>
                     </div>
@@ -64,9 +66,9 @@
             @else
                 <div class="flex flex-col divide-y divide-zinc-100 dark:divide-cherry-800">
                     @foreach ($damRecent as $asset)
-                        @php $meta = $damTypeMeta[$asset->file_type] ?? ['dot' => 'bg-zinc-400']; @endphp
+                        @php $meta = $damTypeMeta[$asset->file_type] ?? ['color' => $damFallbackColor]; @endphp
                         <div class="flex items-center gap-3 py-2.5">
-                            <span class="w-2 h-2 rounded-full shrink-0 {{ $meta['dot'] ?? 'bg-zinc-400' }}"></span>
+                            <span class="w-2 h-2 rounded-full shrink-0" style="background-color: {{ $meta['color'] }}"></span>
                             <span class="flex-1 truncate text-sm text-zinc-700 dark:text-slate-200" title="{{ $asset->file_name }}">
                                 {{ $asset->file_name }}
                             </span>
