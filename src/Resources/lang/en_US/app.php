@@ -1006,6 +1006,7 @@ return [
                         'file-too-large'               => 'The media file exceeds the maximum allowed size.',
                         'forbidden-file'               => 'The media file type is not allowed.',
                         'import-failed'                => 'The row could not be imported due to an unexpected error.',
+                        'properties-invalid'           => 'The "properties" column is not valid JSON. Use a list of objects, for example [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
             ],

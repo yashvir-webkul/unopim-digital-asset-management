@@ -62,6 +62,8 @@ class Importer extends AbstractImporter
 
     public const ERROR_IMPORT_FAILED = 'import_failed';
 
+    public const ERROR_PROPERTIES_INVALID = 'properties_invalid';
+
     protected ?string $defaultPropertyLocale = null;
 
     protected array $validColumnNames = [
@@ -94,6 +96,7 @@ class Importer extends AbstractImporter
         self::ERROR_FILE_TOO_LARGE          => 'dam::app.data-transfer.importers.assets.validation.errors.file-too-large',
         self::ERROR_FORBIDDEN_FILE          => 'dam::app.data-transfer.importers.assets.validation.errors.forbidden-file',
         self::ERROR_IMPORT_FAILED           => 'dam::app.data-transfer.importers.assets.validation.errors.import-failed',
+        self::ERROR_PROPERTIES_INVALID      => 'dam::app.data-transfer.importers.assets.validation.errors.properties-invalid',
     ];
 
     public function __construct(
@@ -138,6 +141,12 @@ class Importer extends AbstractImporter
 
         if ($this->import->action !== Import::ACTION_DELETE && trim((string) ($rowData['directory'] ?? '')) === '') {
             $this->skipRow($rowNumber, self::ERROR_DIRECTORY_REQUIRED, 'directory', trans($this->messages[self::ERROR_DIRECTORY_REQUIRED]));
+
+            return false;
+        }
+
+        if ($this->import->action !== Import::ACTION_DELETE && $this->decodeProperties($rowData) === null) {
+            $this->skipRow($rowNumber, self::ERROR_PROPERTIES_INVALID, 'properties', trans($this->messages[self::ERROR_PROPERTIES_INVALID]));
 
             return false;
         }
@@ -235,6 +244,12 @@ class Importer extends AbstractImporter
                 if ($existing && $conflictStrategy === 'skip') {
                     $skippedCount++;
                     $this->logSkip($rowNumber, $damPath);
+
+                    continue;
+                }
+
+                if ($this->decodeProperties($rowData) === null) {
+                    $this->skipRow($rowNumber, self::ERROR_PROPERTIES_INVALID, 'properties', trans($this->messages[self::ERROR_PROPERTIES_INVALID]));
 
                     continue;
                 }
@@ -462,17 +477,40 @@ class Importer extends AbstractImporter
         $this->assetTagRepository->attachTagsByName($asset, $tags);
     }
 
-    protected function applyProperties(Asset $asset, array $rowData): void
+    /**
+     * Decode the "properties" column: an empty value is no properties, valid
+     * input is a JSON list of objects, and anything else returns null.
+     *
+     * @return array<int, array<string, mixed>>|null
+     */
+    protected function decodeProperties(array $rowData): ?array
     {
         $raw = trim((string) ($rowData['properties'] ?? ''));
 
         if ($raw === '') {
-            return;
+            return [];
         }
 
         $properties = json_decode($raw, true);
 
-        if (! is_array($properties)) {
+        if (! is_array($properties) || ! array_is_list($properties)) {
+            return null;
+        }
+
+        foreach ($properties as $property) {
+            if (! is_array($property) || (array_is_list($property) && $property !== [])) {
+                return null;
+            }
+        }
+
+        return $properties;
+    }
+
+    protected function applyProperties(Asset $asset, array $rowData): void
+    {
+        $properties = $this->decodeProperties($rowData);
+
+        if (! $properties) {
             return;
         }
 

@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => '미디어 파일이 허용된 최대 크기를 초과합니다.',
                         'forbidden-file'               => '허용되지 않는 미디어 파일 형식입니다.',
                         'import-failed'                => '예기치 않은 오류로 행을 가져오지 못했습니다.',
+                        'properties-invalid'           => '"properties" 열이 올바른 JSON이 아닙니다. 객체 목록을 사용하세요. 예: [{"name":"Colour","type":"text","value":"Red"}]',
                     ],
                 ],
                 'samples' => [

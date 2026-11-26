@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'El fitxer multimèdia supera la mida màxima permesa.',
                         'forbidden-file'               => 'El tipus de fitxer multimèdia no està permès.',
                         'import-failed'                => 'No s’ha pogut importar la fila a causa d’un error inesperat.',
+                        'properties-invalid'           => 'La columna "properties" no és un JSON vàlid. Utilitzeu una llista d\'objectes, per exemple [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

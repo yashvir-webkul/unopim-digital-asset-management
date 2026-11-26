@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Medya dosyası izin verilen en büyük boyutu aşıyor.',
                         'forbidden-file'               => 'Medya dosyası türüne izin verilmiyor.',
                         'import-failed'                => 'Beklenmeyen bir hata nedeniyle satır içe aktarılamadı.',
+                        'properties-invalid'           => '"properties" sütunu geçerli bir JSON değil. Nesne listesi kullanın, örneğin [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

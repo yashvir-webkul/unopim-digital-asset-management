@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => '媒体文件超过允许的最大大小。',
                         'forbidden-file'               => '不允许该媒体文件类型。',
                         'import-failed'                => '由于意外错误，无法导入该行。',
+                        'properties-invalid'           => '"properties" 列不是有效的 JSON。请使用对象列表，例如 [{"name":"Colour","type":"text","value":"Red"}]。',
                     ],
                 ],
                 'samples' => [

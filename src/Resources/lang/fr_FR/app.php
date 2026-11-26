@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Le fichier multimédia dépasse la taille maximale autorisée.',
                         'forbidden-file'               => 'Le type de fichier multimédia n’est pas autorisé.',
                         'import-failed'                => 'La ligne n’a pas pu être importée en raison d’une erreur inattendue.',
+                        'properties-invalid'           => 'La colonne "properties" n\'est pas un JSON valide. Utilisez une liste d\'objets, par exemple [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

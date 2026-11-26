@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Het mediabestand overschrijdt de maximaal toegestane grootte.',
                         'forbidden-file'               => 'Het type mediabestand is niet toegestaan.',
                         'import-failed'                => 'De rij kon niet worden geïmporteerd vanwege een onverwachte fout.',
+                        'properties-invalid'           => 'De kolom "properties" is geen geldige JSON. Gebruik een lijst met objecten, bijvoorbeeld [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

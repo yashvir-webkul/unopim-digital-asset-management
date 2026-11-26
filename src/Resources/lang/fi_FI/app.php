@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Mediatiedosto ylittää suurimman sallitun koon.',
                         'forbidden-file'               => 'Mediatiedostotyyppi ei ole sallittu.',
                         'import-failed'                => 'Riviä ei voitu tuoda odottamattoman virheen vuoksi.',
+                        'properties-invalid'           => 'Sarake "properties" ei ole kelvollista JSONia. Käytä objektien luetteloa, esimerkiksi [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Fișierul media depășește dimensiunea maximă permisă.',
                         'forbidden-file'               => 'Tipul de fișier media nu este permis.',
                         'import-failed'                => 'Rândul nu a putut fi importat din cauza unei erori neașteptate.',
+                        'properties-invalid'           => 'Coloana "properties" nu este un JSON valid. Folosiți o listă de obiecte, de exemplu [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

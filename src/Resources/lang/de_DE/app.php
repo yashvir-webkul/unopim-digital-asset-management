@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Die Mediendatei überschreitet die maximal zulässige Größe.',
                         'forbidden-file'               => 'Der Mediendateityp ist nicht zulässig.',
                         'import-failed'                => 'Die Zeile konnte aufgrund eines unerwarteten Fehlers nicht importiert werden.',
+                        'properties-invalid'           => 'Die Spalte "properties" ist kein gültiges JSON. Verwenden Sie eine Liste von Objekten, zum Beispiel [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

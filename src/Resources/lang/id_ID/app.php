@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Berkas media melebihi ukuran maksimum yang diizinkan.',
                         'forbidden-file'               => 'Tipe berkas media tidak diizinkan.',
                         'import-failed'                => 'Baris tidak dapat diimpor karena kesalahan tak terduga.',
+                        'properties-invalid'           => 'Kolom "properties" bukan JSON yang valid. Gunakan daftar objek, misalnya [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

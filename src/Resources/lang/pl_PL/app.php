@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Plik multimedialny przekracza maksymalny dozwolony rozmiar.',
                         'forbidden-file'               => 'Typ pliku multimedialnego jest niedozwolony.',
                         'import-failed'                => 'Nie udało się zaimportować wiersza z powodu nieoczekiwanego błędu.',
+                        'properties-invalid'           => 'Kolumna "properties" nie zawiera poprawnego JSON. Użyj listy obiektów, na przykład [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

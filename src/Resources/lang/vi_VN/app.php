@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Tệp phương tiện vượt quá kích thước tối đa cho phép.',
                         'forbidden-file'               => 'Loại tệp phương tiện không được phép.',
                         'import-failed'                => 'Không thể nhập hàng do lỗi không mong muốn.',
+                        'properties-invalid'           => 'Cột "properties" không phải JSON hợp lệ. Hãy dùng danh sách đối tượng, ví dụ [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

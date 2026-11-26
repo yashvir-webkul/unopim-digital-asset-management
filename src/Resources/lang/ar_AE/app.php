@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'حجم ملف الوسائط يتجاوز الحد الأقصى المسموح به.',
                         'forbidden-file'               => 'نوع ملف الوسائط غير مسموح به.',
                         'import-failed'                => 'تعذّر استيراد الصف بسبب خطأ غير متوقع.',
+                        'properties-invalid'           => 'عمود "properties" ليس JSON صالحًا. استخدم قائمة من الكائنات، مثل [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

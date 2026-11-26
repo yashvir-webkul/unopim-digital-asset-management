@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Mediefilen overskrider den maksimalt tillatte størrelsen.',
                         'forbidden-file'               => 'Mediefiltypen er ikke tillatt.',
                         'import-failed'                => 'Raden kunne ikke importeres på grunn av en uventet feil.',
+                        'properties-invalid'           => 'Kolonnen "properties" er ikke gyldig JSON. Bruk en liste med objekter, for eksempel [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

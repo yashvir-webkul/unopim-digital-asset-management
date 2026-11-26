@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Lumampas ang media file sa pinakamataas na pinapayagang laki.',
                         'forbidden-file'               => 'Hindi pinapayagan ang uri ng media file.',
                         'import-failed'                => 'Hindi ma-import ang row dahil sa hindi inaasahang error.',
+                        'properties-invalid'           => 'Ang column na "properties" ay hindi wastong JSON. Gumamit ng listahan ng mga object, halimbawa [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [

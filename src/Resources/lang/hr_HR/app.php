@@ -983,6 +983,7 @@ return [
                         'file-too-large'               => 'Medijska datoteka premašuje najveću dopuštenu veličinu.',
                         'forbidden-file'               => 'Vrsta medijske datoteke nije dopuštena.',
                         'import-failed'                => 'Redak nije bilo moguće uvesti zbog neočekivane pogreške.',
+                        'properties-invalid'           => 'Stupac "properties" nije valjani JSON. Koristite popis objekata, na primjer [{"name":"Colour","type":"text","value":"Red"}].',
                     ],
                 ],
                 'samples' => [
