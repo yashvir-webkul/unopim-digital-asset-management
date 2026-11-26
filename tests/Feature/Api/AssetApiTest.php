@@ -64,6 +64,16 @@ it('returns 404 when editing a non-existent asset via api', function () {
         ->assertStatus(404);
 });
 
+it('rejects a put to the read-only edit endpoint instead of reporting a save that never happens', function () {
+    $asset = Asset::factory()->create(['file_name' => 'original.png']);
+
+    $this->withHeaders($this->headers)
+        ->putJson(route('admin.api.dam.assets.edit', $asset->id), ['file_name' => 'renamed.png'])
+        ->assertStatus(405);
+
+    expect($asset->fresh()->file_name)->toBe('original.png');
+});
+
 it('updates an asset via the api update endpoint', function () {
     $asset = Asset::factory()->create();
 

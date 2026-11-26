@@ -20,7 +20,7 @@ Route::group([
 ], function () {
     Route::controller(AssetController::class)->prefix('assets')->group(function () {
         Route::get('', 'index')->name('admin.api.dam.assets.index');
-        Route::match(['get', 'put'], '/edit/{id}', 'edit')->name('admin.api.dam.assets.edit');
+        Route::get('/edit/{id}', 'edit')->name('admin.api.dam.assets.edit');
         Route::get('/{id}', 'show')->name('admin.api.dam.assets.show');
         Route::post('/reupload', 'reUpload')->name('admin.api.dam.assets.reUpload');
         Route::get('/{id}/metadata', 'metadata')->name('admin.api.dam.assets.metadata');

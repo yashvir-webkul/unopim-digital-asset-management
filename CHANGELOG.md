@@ -14,7 +14,7 @@
 
 * **AI Tagging configuration** — The DAM Configuration page now lets you choose the Magic AI platform and model used for tagging, offering only vision-capable models.
 
-* `/api/v1/rest/assets/edit/{id}` now also accepts `GET`, since it only reads data. `PUT` continues to work, so existing clients are unaffected.
+* `/api/v1/rest/assets/edit/{id}` is now `GET`-only, since it only reads data. `PUT` returns `405 Method Not Allowed` instead of reporting a save that never happened; use `PUT /api/v1/rest/assets/{id}` to update an asset.
 
 ### Security
 
