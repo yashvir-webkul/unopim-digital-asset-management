@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Resurssin nimi on ristiriidassa olemassa olevan tiedoston kanssa samassa hakemistossa.',
                     'old-file-not-found'                        => 'Polusta :old_path pyydettyä tiedostoa ei löytynyt.',
                     'image-name-is-the-same'                    => 'Tämä nimi on jo olemassa. Syötä toinen nimi.',
+                    'asset-name-too-long'                       => 'Nimi on liian pitkä. Kansiopolku ja tiedostonimi saavat yhdessä olla enintään :max merkkiä.',
                     'not-writable'                              => 'Sinulla ei ole oikeutta suorittaa toimintoa :actionType kohteelle :type sijainnissa ":path".',
                     'empty-directory'                           => 'Tämä hakemisto on tyhjä.',
                     'something-wrong'                           => 'Jokin meni pieleen. Yritä uudelleen.',

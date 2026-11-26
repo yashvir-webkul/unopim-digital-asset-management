@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'アセット名が同じディレクトリ内の既存のファイルと競合しています。',
                     'old-file-not-found'                        => 'パス ":old_path" に要求されたファイルが見つかりません。',
                     'image-name-is-the-same'                    => 'この名前は既に存在します。別の名前を入力してください。',
+                    'asset-name-too-long'                       => '名前が長すぎます。フォルダーのパスとファイル名の合計は :max 文字以内にしてください。',
                     'not-writable'                              => 'この場所 ":path" で :type を :actionType する権限がありません。',
                     'empty-directory'                           => 'このディレクトリは空です。',
                     'something-wrong'                           => '問題が発生しました。もう一度お試しください。',

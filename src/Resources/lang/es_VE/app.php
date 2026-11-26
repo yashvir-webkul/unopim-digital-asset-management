@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'El nombre del activo entra en conflicto con un archivo existente en el mismo directorio.',
                     'old-file-not-found'                        => 'El archivo solicitado en la ruta :old_path no fue encontrado.',
                     'image-name-is-the-same'                    => 'Este nombre ya existe. Por favor, ingrese uno diferente.',
+                    'asset-name-too-long'                       => 'El nombre es demasiado largo. La ruta de la carpeta y el nombre del archivo juntos no pueden superar los :max caracteres.',
                     'not-writable'                              => 'No tiene permiso para :actionType un :type en esta ubicación ":path".',
                     'empty-directory'                           => 'Este directorio está vacío.',
                     'something-wrong'                           => 'Algo salió mal. Por favor, inténtelo de nuevo.',

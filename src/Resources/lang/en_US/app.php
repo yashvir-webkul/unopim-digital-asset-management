@@ -153,6 +153,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'The asset name conflicts with an existing file in the same directory.',
                     'old-file-not-found'                        => 'The file requested at the path :old_path was not found.',
                     'image-name-is-the-same'                    => 'This name is already exist. Please enter a different one.',
+                    'asset-name-too-long'                       => 'The name is too long. The folder path and the file name together must not exceed :max characters.',
                     'not-writable'                              => 'You are not allowed to :actionType a :type in this location ":path".',
                     'empty-directory'                           => 'This directory is empty.',
                     'something-wrong'                           => 'Something went wrong. Please try again.',

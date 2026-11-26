@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Der Asset-Name steht im Konflikt mit einer bestehenden Datei im selben Verzeichnis.',
                     'old-file-not-found'                        => 'Die Datei unter dem Pfad :old_path wurde nicht gefunden.',
                     'image-name-is-the-same'                    => 'Dieser Name existiert bereits. Bitte geben Sie einen anderen ein.',
+                    'asset-name-too-long'                       => 'Der Name ist zu lang. Ordnerpfad und Dateiname dürfen zusammen höchstens :max Zeichen lang sein.',
                     'not-writable'                              => 'Sie dürfen eine :type an diesem Speicherort ":path" nicht :actionType.',
                     'empty-directory'                           => 'Dieses Verzeichnis ist leer.',
                     'something-wrong'                           => 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',

@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'El nom de l\'actiu entra en conflicte amb un fitxer existent al mateix directori.',
                     'old-file-not-found'                        => 'El fitxer sol·licitat a la ruta :old_path no s\'ha trobat.',
                     'image-name-is-the-same'                    => 'Aquest nom ja existeix. Si us plau, introduïu-ne un altre.',
+                    'asset-name-too-long'                       => 'El nom és massa llarg. La ruta de la carpeta i el nom del fitxer junts no poden superar els :max caràcters.',
                     'not-writable'                              => 'No teniu permís per :actionType un :type en aquesta ubicació ":path".',
                     'empty-directory'                           => 'Aquest directori és buit.',
                     'something-wrong'                           => 'Alguna cosa ha anat malament. Torneu-ho a provar.',

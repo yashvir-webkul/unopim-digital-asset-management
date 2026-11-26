@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Naziv resursa je u sukobu s postojećom datotekom u istom direktoriju.',
                     'old-file-not-found'                        => 'Datoteka zatražena na putanji :old_path nije pronađena.',
                     'image-name-is-the-same'                    => 'Ovaj naziv već postoji. Molimo unesite drugi.',
+                    'asset-name-too-long'                       => 'Naziv je predugačak. Putanja mape i naziv datoteke zajedno ne smiju premašiti :max znakova.',
                     'not-writable'                              => 'Nije vam dopušteno :actionType :type na ovoj lokaciji ":path".',
                     'empty-directory'                           => 'Ovaj direktorij je prazan.',
                     'something-wrong'                           => 'Nešto je pošlo po zlu. Pokušajte ponovno.',

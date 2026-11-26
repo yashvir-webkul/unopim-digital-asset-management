@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Ang pangalan ng asset ay nagkakasalungat sa umiiral na file sa parehong direktoryo.',
                     'old-file-not-found'                        => 'Ang file na hiniling sa path na :old_path ay hindi nahanap.',
                     'image-name-is-the-same'                    => 'Umiiral na ang pangalang ito. Mangyaring maglagay ng iba.',
+                    'asset-name-too-long'                       => 'Masyadong mahaba ang pangalan. Ang path ng folder at ang pangalan ng file ay hindi dapat lumampas sa :max na character.',
                     'not-writable'                              => 'Hindi ka pinapayagan na :actionType ng :type sa lokasyong ito ":path".',
                     'empty-directory'                           => 'Walang laman ang direktoryong ito.',
                     'something-wrong'                           => 'Nagkaroon ng problema. Pakisubukang muli.',

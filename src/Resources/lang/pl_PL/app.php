@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Nazwa zasobu jest sprzeczna z istniejącym plikiem w tym samym katalogu.',
                     'old-file-not-found'                        => 'Plik żądany pod ścieżką :old_path nie został znaleziony.',
                     'image-name-is-the-same'                    => 'Ta nazwa już istnieje. Proszę wprowadzić inną.',
+                    'asset-name-too-long'                       => 'Nazwa jest za długa. Ścieżka folderu i nazwa pliku łącznie nie mogą przekraczać :max znaków.',
                     'not-writable'                              => 'Nie masz uprawnień do :actionType :type w tej lokalizacji ":path".',
                     'empty-directory'                           => 'Ten katalog jest pusty.',
                     'something-wrong'                           => 'Coś poszło nie tak. Spróbuj ponownie.',

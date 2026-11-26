@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Numele activului intră în conflict cu un fișier existent din același director.',
                     'old-file-not-found'                        => 'Fișierul solicitat la calea :old_path nu a fost găsit.',
                     'image-name-is-the-same'                    => 'Acest nume există deja. Vă rugăm să introduceți un alt nume.',
+                    'asset-name-too-long'                       => 'Numele este prea lung. Calea folderului și numele fișierului împreună nu pot depăși :max caractere.',
                     'not-writable'                              => 'Nu aveți permisiunea să :actionType un :type în această locație ":path".',
                     'empty-directory'                           => 'Acest director este gol.',
                     'something-wrong'                           => 'Ceva nu a mers bine. Vă rugăm să încercați din nou.',

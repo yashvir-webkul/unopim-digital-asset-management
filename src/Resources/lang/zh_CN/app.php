@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => '资产名称与同一目录中的现有文件冲突。',
                     'old-file-not-found'                        => '在路径 :old_path 请求的文件未找到。',
                     'image-name-is-the-same'                    => '该名称已存在，请输入一个不同的名称。',
+                    'asset-name-too-long'                       => '名称过长。文件夹路径和文件名合计不能超过 :max 个字符。',
                     'not-writable'                              => '您没有权限在此位置 ":path" 对 :type 执行 :actionType 操作。',
                     'empty-directory'                           => '此目录为空。',
                     'something-wrong'                           => '出了点问题，请重试。',

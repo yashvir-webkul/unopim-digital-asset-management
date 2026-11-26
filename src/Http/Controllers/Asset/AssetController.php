@@ -42,6 +42,11 @@ class AssetController extends Controller
 {
     use AutoTagEligibility, DirectoryTrait;
 
+    /**
+     * Length of the dam_assets.path column; folder path plus file name must fit.
+     */
+    protected const ASSET_PATH_MAX_LENGTH = 255;
+
     public function __construct(
         protected AssetRepository $assetRepository,
         protected AssetTagRepository $assetTagRepository,
@@ -1266,9 +1271,19 @@ class AssetController extends Controller
         try {
             $name = $request->input('file_name');
             $oldPath = $asset->path;
-            $newPath = str_replace($asset->file_name, $name, $oldPath);
+            $parentPath = dirname($oldPath);
+            $newPath = ($parentPath === '.' ? '' : $parentPath.'/').$name;
 
             if ($newPath !== $oldPath) {
+                if (mb_strlen($newPath) > self::ASSET_PATH_MAX_LENGTH) {
+                    $message = trans('dam::app.admin.dam.index.directory.asset-name-too-long', ['max' => self::ASSET_PATH_MAX_LENGTH]);
+
+                    return new JsonResponse([
+                        'message' => $message,
+                        'errors'  => ['file_name' => [$message]],
+                    ], 422);
+                }
+
                 $disk = Directory::getAssetDisk();
                 if (Storage::disk($disk)->exists($newPath)) {
                     return new JsonResponse([
@@ -1295,10 +1310,16 @@ class AssetController extends Controller
                         ]));
                     }
 
-                    $asset->update([
-                        'file_name' => $name,
-                        'path'      => $newPath,
-                    ]);
+                    try {
+                        $asset->update([
+                            'file_name' => $name,
+                            'path'      => $newPath,
+                        ]);
+                    } catch (\Throwable $e) {
+                        Storage::disk($disk)->move($newPath, $oldPath);
+
+                        throw $e;
+                    }
 
                     return new JsonResponse([
                         'data'    => $asset,

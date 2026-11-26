@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Tên tài sản xung đột với một tệp hiện có trong cùng thư mục.',
                     'old-file-not-found'                        => 'Không tìm thấy tệp được yêu cầu tại đường dẫn :old_path.',
                     'image-name-is-the-same'                    => 'Tên này đã tồn tại. Vui lòng nhập một tên khác.',
+                    'asset-name-too-long'                       => 'Tên quá dài. Đường dẫn thư mục và tên tệp cộng lại không được vượt quá :max ký tự.',
                     'not-writable'                              => 'Bạn không được phép :actionType một :type tại vị trí này ":path".',
                     'empty-directory'                           => 'Thư mục này trống.',
                     'something-wrong'                           => 'Đã xảy ra lỗi. Vui lòng thử lại.',

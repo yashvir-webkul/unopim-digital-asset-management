@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => '자산 이름이 같은 디렉터리의 기존 파일과 충돌합니다.',
                     'old-file-not-found'                        => ':old_path 경로에서 요청한 파일을 찾을 수 없습니다.',
                     'image-name-is-the-same'                    => '이 이름은 이미 존재합니다. 다른 이름을 입력해 주세요.',
+                    'asset-name-too-long'                       => '이름이 너무 깁니다. 폴더 경로와 파일 이름을 합쳐 :max자를 넘을 수 없습니다.',
                     'not-writable'                              => '이 위치 ":path" 에서 :type 을(를) :actionType 할 수 없습니다.',
                     'empty-directory'                           => '이 디렉터리는 비어 있습니다.',
                     'something-wrong'                           => '문제가 발생했습니다. 다시 시도해 주세요.',

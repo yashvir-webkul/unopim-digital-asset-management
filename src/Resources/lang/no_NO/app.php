@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Ressursnavnet er i konflikt med en eksisterende fil i samme mappe.',
                     'old-file-not-found'                        => 'Filen som ble forespurt på stien :old_path ble ikke funnet.',
                     'image-name-is-the-same'                    => 'Dette navnet finnes allerede. Vennligst oppgi et annet.',
+                    'asset-name-too-long'                       => 'Navnet er for langt. Mappebanen og filnavnet kan til sammen ikke være lengre enn :max tegn.',
                     'not-writable'                              => 'Du har ikke tillatelse til å :actionType en :type på denne plasseringen ":path".',
                     'empty-directory'                           => 'Denne mappen er tom.',
                     'something-wrong'                           => 'Noe gikk galt. Prøv igjen.',

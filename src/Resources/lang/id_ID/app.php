@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Nama aset bertabrakan dengan file yang ada di direktori yang sama.',
                     'old-file-not-found'                        => 'File yang diminta pada path :old_path tidak ditemukan.',
                     'image-name-is-the-same'                    => 'Nama ini sudah ada. Harap masukkan nama yang berbeda.',
+                    'asset-name-too-long'                       => 'Nama terlalu panjang. Jalur folder dan nama file bersama-sama tidak boleh melebihi :max karakter.',
                     'not-writable'                              => 'Anda tidak diizinkan untuk :actionType :type di lokasi ini ":path".',
                     'empty-directory'                           => 'Direktori ini kosong.',
                     'something-wrong'                           => 'Terjadi kesalahan. Silakan coba lagi.',

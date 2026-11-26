@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'اسم الأصل يتعارض مع ملف موجود في نفس الدليل.',
                     'old-file-not-found'                        => 'لم يتم العثور على الملف المطلوب في المسار :old_path.',
                     'image-name-is-the-same'                    => 'هذا الاسم موجود بالفعل. يرجى إدخال اسم مختلف.',
+                    'asset-name-too-long'                       => 'الاسم طويل جدًا. يجب ألا يتجاوز مسار المجلد واسم الملف معًا :max حرفًا.',
                     'not-writable'                              => 'أنت غير مسموح لك بـ :actionType :type في هذا الموقع ":path".',
                     'empty-directory'                           => 'هذا الدليل فارغ.',
                     'something-wrong'                           => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',

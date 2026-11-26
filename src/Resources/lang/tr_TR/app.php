@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'Varlık adı, aynı dizindeki mevcut bir dosya ile çakışıyor.',
                     'old-file-not-found'                        => ':old_path yolundaki dosya bulunamadı.',
                     'image-name-is-the-same'                    => 'Bu ad zaten mevcut. Lütfen farklı bir ad girin.',
+                    'asset-name-too-long'                       => 'Ad çok uzun. Klasör yolu ve dosya adı birlikte :max karakteri geçemez.',
                     'not-writable'                              => 'Bu konumda ":path" bir :type üzerinde :actionType işlemine izniniz yok.',
                     'empty-directory'                           => 'Bu dizin boş.',
                     'something-wrong'                           => 'Bir şeyler ters gitti. Lütfen tekrar deneyin.',

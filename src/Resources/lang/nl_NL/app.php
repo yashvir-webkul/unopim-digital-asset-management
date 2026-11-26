@@ -151,6 +151,7 @@ return [
                     'asset-name-conflict-in-the-same-directory' => 'De assetnaam komt in conflict met een bestaand bestand in dezelfde map.',
                     'old-file-not-found'                        => 'Het bestand op het pad :old_path werd niet gevonden.',
                     'image-name-is-the-same'                    => 'Deze naam bestaat al. Voer een andere naam in.',
+                    'asset-name-too-long'                       => 'De naam is te lang. Het mappad en de bestandsnaam samen mogen niet langer zijn dan :max tekens.',
                     'not-writable'                              => 'Je mag geen :actionType een :type op deze locatie ":path".',
                     'empty-directory'                           => 'Deze map is leeg.',
                     'something-wrong'                           => 'Er is iets misgegaan. Probeer het opnieuw.',
