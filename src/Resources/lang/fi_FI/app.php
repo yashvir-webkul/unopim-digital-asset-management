@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Tämä nimi on jo olemassa. Syötä toinen nimi.',
                     'not-writable'                              => 'Sinulla ei ole oikeutta suorittaa toimintoa :actionType kohteelle :type sijainnissa ":path".',
                     'empty-directory'                           => 'Tämä hakemisto on tyhjä.',
+                    'something-wrong'                           => 'Jokin meni pieleen. Yritä uudelleen.',
                     'failed-download-directory'                 => 'Zip-tiedoston luominen epäonnistui.',
                     'not-allowed'                               => 'Komentosarjatiedostojen lähettäminen ei ole sallittua.',
                     'copy-success'                              => 'Kansio kopioitu onnistuneesti.',

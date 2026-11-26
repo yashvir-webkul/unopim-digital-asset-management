@@ -1692,14 +1692,20 @@
             },
 
             downloadItem(type = 'directory', ) {
-                let downloadLink = '';
                 if (type == 'directory') {
-                    downloadLink = `{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.selectedItem.id);
-                } else {
-                    downloadLink = `{{ route('admin.dam.assets.download', ':id') }}`.replace(':id', this.selectedItem.id);
+                    const zipLink = `{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.selectedItem.id);
+
+                    this.$axios.get(zipLink)
+                        .then(() => { window.location.href = zipLink; })
+                        .catch(e => this.$emitter.emit('add-flash', {
+                            type: e?.response?.status === 422 ? 'warning' : 'error',
+                            message: e?.response?.data?.message ?? "@lang('dam::app.admin.dam.index.directory.failed-download-directory')",
+                        }));
+
+                    return;
                 }
 
-                window.open(downloadLink, '_self');
+                window.open(`{{ route('admin.dam.assets.download', ':id') }}`.replace(':id', this.selectedItem.id), '_self');
             },
 
             shareDirectory() {

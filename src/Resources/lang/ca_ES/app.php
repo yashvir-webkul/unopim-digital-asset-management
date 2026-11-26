@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Aquest nom ja existeix. Si us plau, introduïu-ne un altre.',
                     'not-writable'                              => 'No teniu permís per :actionType un :type en aquesta ubicació ":path".',
                     'empty-directory'                           => 'Aquest directori és buit.',
+                    'something-wrong'                           => 'Alguna cosa ha anat malament. Torneu-ho a provar.',
                     'failed-download-directory'                 => 'No s\'ha pogut crear el fitxer zip.',
                     'not-allowed'                               => 'No es permet la pujada de fitxers d\'script.',
                     'copy-success'                              => 'Carpeta copiada correctament.',

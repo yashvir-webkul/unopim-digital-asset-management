@@ -412,7 +412,11 @@ class DirectoryController
         }
     }
 
-    public function downloadArchive(int $id)
+    /**
+     * Stream a ZIP of the directory subtree. AJAX callers get a JSON pre-check
+     * (422 with a message when empty, 200 when ready) so the page never reloads.
+     */
+    public function downloadArchive(Request $request, int $id)
     {
         if (! $this->permissionService->canAccess($id)) {
             abort(403, trans('dam::app.admin.permissions.unauthorized'));
@@ -427,7 +431,17 @@ class DirectoryController
             ->whereHas('directories', fn ($q) => $q->whereBetween('_lft', [$directory->_lft, $directory->_rgt]));
 
         if (! $subtreeQuery->exists()) {
-            return back()->with('error', trans('dam::app.admin.dam.index.directory.empty-directory'));
+            $message = trans('dam::app.admin.dam.index.directory.empty-directory');
+
+            if ($request->expectsJson()) {
+                return new JsonResponse(['message' => $message], 422);
+            }
+
+            return back()->with('error', $message);
+        }
+
+        if ($request->expectsJson()) {
+            return new JsonResponse(['downloadable' => true]);
         }
 
         $zipName = sprintf('%s.zip', $directory->name);

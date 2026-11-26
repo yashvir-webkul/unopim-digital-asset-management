@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => '此名稱已存在，請輸入另一個名稱。',
                     'not-writable'                              => '您無法在此位置 ":path" :actionType 一個 :type。',
                     'empty-directory'                           => '此目錄為空。',
+                    'something-wrong'                           => '發生錯誤，請再試一次。',
                     'failed-download-directory'                 => '建立 zip 檔案失敗。',
                     'not-allowed'                               => '不允許上傳指令碼檔案。',
                     'copy-success'                              => '資料夾複製成功。',

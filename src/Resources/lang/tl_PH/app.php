@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Umiiral na ang pangalang ito. Mangyaring maglagay ng iba.',
                     'not-writable'                              => 'Hindi ka pinapayagan na :actionType ng :type sa lokasyong ito ":path".',
                     'empty-directory'                           => 'Walang laman ang direktoryong ito.',
+                    'something-wrong'                           => 'Nagkaroon ng problema. Pakisubukang muli.',
                     'failed-download-directory'                 => 'Nabigong gawin ang zip file.',
                     'not-allowed'                               => 'Hindi pinapayagan ang pag-upload ng mga script file.',
                     'copy-success'                              => 'Matagumpay na nakopya ang folder.',

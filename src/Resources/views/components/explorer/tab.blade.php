@@ -1068,7 +1068,15 @@ app.component('v-dam-tab', {
 
         downloadCurrentDir() {
             if (! this.currentDirId) return;
-            window.open(`{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.currentDirId), '_self');
+
+            const url = `{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.currentDirId);
+
+            this.$axios.get(url)
+                .then(() => { window.location.href = url; })
+                .catch(e => this.$emitter.emit('add-flash', {
+                    type: e?.response?.status === 422 ? 'warning' : 'error',
+                    message: e?.response?.data?.message ?? "@lang('dam::app.admin.dam.index.directory.failed-download-directory')",
+                }));
         },
 
         shareCurrentDir() {

@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Det här namnet finns redan. Ange ett annat.',
                     'not-writable'                              => 'Du har inte behörighet att :actionType en :type på den här platsen ":path".',
                     'empty-directory'                           => 'Den här katalogen är tom.',
+                    'something-wrong'                           => 'Något gick fel. Försök igen.',
                     'failed-download-directory'                 => 'Det gick inte att skapa zip-filen.',
                     'not-allowed'                               => 'Uppladdning av skriptfiler är inte tillåten.',
                     'copy-success'                              => 'Mappen kopierades.',

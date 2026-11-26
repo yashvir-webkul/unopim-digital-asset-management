@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Tên này đã tồn tại. Vui lòng nhập một tên khác.',
                     'not-writable'                              => 'Bạn không được phép :actionType một :type tại vị trí này ":path".',
                     'empty-directory'                           => 'Thư mục này trống.',
+                    'something-wrong'                           => 'Đã xảy ra lỗi. Vui lòng thử lại.',
                     'failed-download-directory'                 => 'Không thể tạo tệp zip.',
                     'not-allowed'                               => 'Không cho phép tải lên các tệp script.',
                     'copy-success'                              => 'Sao chép thư mục thành công.',

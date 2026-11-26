@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Este nombre ya existe. Por favor, ingrese otro.',
                     'not-writable'                              => 'No tienes permiso para :actionType un :type en esta ubicación ":path".',
                     'empty-directory'                           => 'Este directorio está vacío.',
+                    'something-wrong'                           => 'Algo salió mal. Por favor, inténtelo de nuevo.',
                     'failed-download-directory'                 => 'No se pudo crear el archivo zip.',
                     'not-allowed'                               => 'No se permite la carga de archivos de script.',
                     'copy-success'                              => 'Carpeta copiada correctamente.',

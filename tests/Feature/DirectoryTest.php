@@ -148,6 +148,43 @@ it('downloads a zip archive of the directory files and folders', function () {
     $response->assertHeader('content-disposition', 'attachment; filename="TestDirectory.zip"');
 });
 
+it('returns a json empty-folder message instead of redirecting when zip download is checked via ajax', function () {
+    $directory = Directory::factory()->create(['name' => 'EmptyDirectory']);
+
+    $response = $this->getJson(route('admin.dam.directory.zip_download', ['id' => $directory->id]));
+
+    $response->assertUnprocessable();
+    $response->assertJson([
+        'message' => trans('dam::app.admin.dam.index.directory.empty-directory'),
+    ]);
+});
+
+it('confirms a non-empty folder is downloadable via ajax without streaming the zip', function () {
+    $directory = Directory::factory()->create(['name' => 'FilledDirectory']);
+
+    $folderPath = sprintf('%s/%s', Directory::ASSETS_DIRECTORY, $directory->generatePath());
+    $disk = Directory::getAssetDisk();
+    Storage::fake($disk);
+    Storage::disk($disk)->put($folderPath.'/file1.txt', 'File 1 contents');
+
+    $asset = Asset::factory()->create(['path' => $folderPath.'/file1.txt']);
+    $directory->assets()->attach($asset->id);
+
+    $response = $this->getJson(route('admin.dam.directory.zip_download', ['id' => $directory->id]));
+
+    $response->assertOk();
+    $response->assertJson(['downloadable' => true]);
+});
+
+it('keeps the redirect fallback for a non-ajax zip download of an empty folder', function () {
+    $directory = Directory::factory()->create(['name' => 'EmptyDirectory']);
+
+    $response = $this->get(route('admin.dam.directory.zip_download', ['id' => $directory->id]));
+
+    $response->assertRedirect();
+    $response->assertSessionHas('error', trans('dam::app.admin.dam.index.directory.empty-directory'));
+});
+
 it('dispatches copy job when directory is copyable', function () {
     Bus::fake();
 

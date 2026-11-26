@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Nama ini sudah ada. Harap masukkan nama yang berbeda.',
                     'not-writable'                              => 'Anda tidak diizinkan untuk :actionType :type di lokasi ini ":path".',
                     'empty-directory'                           => 'Direktori ini kosong.',
+                    'something-wrong'                           => 'Terjadi kesalahan. Silakan coba lagi.',
                     'failed-download-directory'                 => 'Gagal membuat file zip.',
                     'not-allowed'                               => 'Unggah file skrip tidak diperbolehkan.',
                     'copy-success'                              => 'Folder berhasil disalin.',

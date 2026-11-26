@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Acest nume există deja. Vă rugăm să introduceți un alt nume.',
                     'not-writable'                              => 'Nu aveți permisiunea să :actionType un :type în această locație ":path".',
                     'empty-directory'                           => 'Acest director este gol.',
+                    'something-wrong'                           => 'Ceva nu a mers bine. Vă rugăm să încercați din nou.',
                     'failed-download-directory'                 => 'Crearea fișierului zip a eșuat.',
                     'not-allowed'                               => 'Încărcarea fișierelor de tip script nu este permisă.',
                     'copy-success'                              => 'Dosarul a fost copiat cu succes.',

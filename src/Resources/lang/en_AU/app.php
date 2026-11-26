@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'This name is already in use. Please enter a different one.',
                     'not-writable'                              => 'You are not allowed to :actionType a :type in this location ":path".',
                     'empty-directory'                           => 'This directory is empty.',
+                    'something-wrong'                           => 'Something went wrong. Please try again.',
                     'failed-download-directory'                 => 'Failed to create the zip file.',
                     'not-allowed'                               => 'Uploading script files is not allowed.',
                     'copy-success'                              => 'Folder copied successfully.',

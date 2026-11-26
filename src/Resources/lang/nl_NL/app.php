@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Deze naam bestaat al. Voer een andere naam in.',
                     'not-writable'                              => 'Je mag geen :actionType een :type op deze locatie ":path".',
                     'empty-directory'                           => 'Deze map is leeg.',
+                    'something-wrong'                           => 'Er is iets misgegaan. Probeer het opnieuw.',
                     'failed-download-directory'                 => 'Mislukt om het zipbestand te maken.',
                     'not-allowed'                               => 'Het uploaden van scriptbestanden is niet toegestaan.',
                     'copy-success'                              => 'Map succesvol gekopieerd.',

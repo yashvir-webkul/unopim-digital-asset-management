@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Bu ad zaten mevcut. Lütfen farklı bir ad girin.',
                     'not-writable'                              => 'Bu konumda ":path" bir :type üzerinde :actionType işlemine izniniz yok.',
                     'empty-directory'                           => 'Bu dizin boş.',
+                    'something-wrong'                           => 'Bir şeyler ters gitti. Lütfen tekrar deneyin.',
                     'failed-download-directory'                 => 'Zip dosyası oluşturulamadı.',
                     'not-allowed'                               => 'Betik dosyaları yüklemeye izin verilmiyor.',
                     'copy-success'                              => 'Klasör başarıyla kopyalandı.',

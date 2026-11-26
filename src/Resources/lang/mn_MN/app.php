@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Энэ нэр аль хэдийн байна. Өөр нэр оруулна уу.',
                     'not-writable'                              => 'Та ":path" байршилд :type-ийг :actionType хийх эрхгүй байна.',
                     'empty-directory'                           => 'Энэ директор хоосон байна.',
+                    'something-wrong'                           => 'Алдаа гарлаа. Дахин оролдоно уу.',
                     'failed-download-directory'                 => 'ZIP файл үүсгэхэд алдаа гарлаа.',
                     'not-allowed'                               => 'Скрипт файлуудыг ачаалуулахыг хориглоно.',
                     'copy-success'                              => 'Хавтас амжилттай хуулагдлаа.',

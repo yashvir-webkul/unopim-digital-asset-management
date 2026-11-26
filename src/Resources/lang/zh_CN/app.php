@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => '该名称已存在，请输入一个不同的名称。',
                     'not-writable'                              => '您没有权限在此位置 ":path" 对 :type 执行 :actionType 操作。',
                     'empty-directory'                           => '此目录为空。',
+                    'something-wrong'                           => '出了点问题，请重试。',
                     'failed-download-directory'                 => '无法创建 zip 文件。',
                     'not-allowed'                               => '不允许上传脚本文件。',
                     'copy-success'                              => '文件夹复制成功。',

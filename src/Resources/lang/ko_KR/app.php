@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => '이 이름은 이미 존재합니다. 다른 이름을 입력해 주세요.',
                     'not-writable'                              => '이 위치 ":path" 에서 :type 을(를) :actionType 할 수 없습니다.',
                     'empty-directory'                           => '이 디렉터리는 비어 있습니다.',
+                    'something-wrong'                           => '문제가 발생했습니다. 다시 시도해 주세요.',
                     'failed-download-directory'                 => 'zip 파일을 생성하지 못했습니다.',
                     'not-allowed'                               => '스크립트 파일 업로드는 허용되지 않습니다.',
                     'copy-success'                              => '폴더가 성공적으로 복사되었습니다.',

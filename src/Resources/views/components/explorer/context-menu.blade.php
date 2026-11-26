@@ -260,7 +260,18 @@ app.component('v-dam-explorer-ctx', {
                 })
                 .catch(e => this.$emitter.emit('add-flash', { type: 'error', message: e?.response?.data?.message ?? "@lang('dam::app.admin.dam.index.directory.something-wrong')" }));
         },
-        downloadZip() { this.close(); window.open(`{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.item.id), '_self'); },
+        downloadZip() {
+            this.close();
+
+            const url = `{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.item.id);
+
+            this.$axios.get(url)
+                .then(() => { window.location.href = url; })
+                .catch(e => this.$emitter.emit('add-flash', {
+                    type: e?.response?.status === 422 ? 'warning' : 'error',
+                    message: e?.response?.data?.message ?? "@lang('dam::app.admin.dam.index.directory.failed-download-directory')",
+                }));
+        },
         share()       { this.close(); this.$emitter.emit('open-share-modal', { targetType:'directory', targetId: this.item.id }); },
         uploadHere()       { this.close(); this.$emitter.emit(`dam:explorer-upload-here:${this.tabId}`, { directoryId: this.item.id }); },
         folderUploadHere() { this.close(); this.$emitter.emit(`dam:explorer-folder-upload-here:${this.tabId}`, { directoryId: this.item.id }); },

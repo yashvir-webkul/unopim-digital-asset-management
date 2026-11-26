@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Ovaj naziv već postoji. Molimo unesite drugi.',
                     'not-writable'                              => 'Nije vam dopušteno :actionType :type na ovoj lokaciji ":path".',
                     'empty-directory'                           => 'Ovaj direktorij je prazan.',
+                    'something-wrong'                           => 'Nešto je pošlo po zlu. Pokušajte ponovno.',
                     'failed-download-directory'                 => 'Neuspješno stvaranje zip datoteke.',
                     'not-allowed'                               => 'Prijenos skriptnih datoteka nije dopušten.',
                     'copy-success'                              => 'Mapa je uspješno kopirana.',

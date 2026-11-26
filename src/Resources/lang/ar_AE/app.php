@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'هذا الاسم موجود بالفعل. يرجى إدخال اسم مختلف.',
                     'not-writable'                              => 'أنت غير مسموح لك بـ :actionType :type في هذا الموقع ":path".',
                     'empty-directory'                           => 'هذا الدليل فارغ.',
+                    'something-wrong'                           => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',
                     'failed-download-directory'                 => 'فشل في إنشاء الملف المضغوط.',
                     'not-allowed'                               => 'رفع ملفات السكربت غير مسموح به.',
                     'copy-success'                              => 'تم نسخ المجلد بنجاح.',

@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'この名前は既に存在します。別の名前を入力してください。',
                     'not-writable'                              => 'この場所 ":path" で :type を :actionType する権限がありません。',
                     'empty-directory'                           => 'このディレクトリは空です。',
+                    'something-wrong'                           => '問題が発生しました。もう一度お試しください。',
                     'failed-download-directory'                 => 'ZIPファイルの作成に失敗しました。',
                     'not-allowed'                               => 'スクリプトファイルのアップロードは許可されていません。',
                     'copy-success'                              => 'フォルダが正常にコピーされました。',

@@ -153,6 +153,7 @@ return [
                     'image-name-is-the-same'                    => 'Dieser Name existiert bereits. Bitte geben Sie einen anderen ein.',
                     'not-writable'                              => 'Sie dürfen eine :type an diesem Speicherort ":path" nicht :actionType.',
                     'empty-directory'                           => 'Dieses Verzeichnis ist leer.',
+                    'something-wrong'                           => 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
                     'failed-download-directory'                 => 'Fehler beim Erstellen der ZIP-Datei.',
                     'not-allowed'                               => 'Das Hochladen von Skriptdateien ist nicht erlaubt.',
                     'copy-success'                              => 'Ordner erfolgreich kopiert.',
