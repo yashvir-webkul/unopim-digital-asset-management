@@ -152,3 +152,51 @@ it('does not require authentication for any public share route', function () {
 
     $this->get(route('dam.share.show', $share->token))->assertOk();
 });
+
+it('falls back to attachment when disposition is sent as an array on the asset download route', function () {
+    $asset = Asset::factory()->create();
+    placeAssetFile($asset);
+    $share = Share::factory()->forAsset($asset->id)->create();
+
+    $this->get(route('dam.share.download', $share->token).'?disposition[]=x')
+        ->assertOk()
+        ->assertHeader('Content-Disposition', 'attachment; filename="'.str_replace(['"', "\r", "\n", "\0"], '', $asset->file_name).'"');
+
+    expect($share->fresh()->download_count)->toBe(1);
+});
+
+it('falls back to attachment when disposition is sent as an array on the folder asset download route', function () {
+    $directory = Directory::factory()->create();
+    $asset = Asset::factory()->create();
+    placeAssetFile($asset);
+    $directory->assets()->attach($asset->id);
+    $share = Share::factory()->forDirectory($directory->id)->create();
+
+    $this->get(route('dam.share.asset_download', ['token' => $share->token, 'assetId' => $asset->id]).'?disposition[inline]=inline')
+        ->assertOk()
+        ->assertHeader('Content-Disposition', 'attachment; filename="'.str_replace(['"', "\r", "\n", "\0"], '', $asset->file_name).'"');
+
+    expect($share->fresh()->download_count)->toBe(1);
+});
+
+it('counts a download when disposition is attachment in any letter case', function () {
+    $asset = Asset::factory()->create();
+    placeAssetFile($asset);
+    $share = Share::factory()->forAsset($asset->id)->create();
+
+    $this->get(route('dam.share.download', $share->token).'?disposition=ATTACHMENT')
+        ->assertOk()
+        ->assertHeader('Content-Disposition', 'attachment; filename="'.str_replace(['"', "\r", "\n", "\0"], '', $asset->file_name).'"');
+
+    expect($share->fresh()->download_count)->toBe(1);
+});
+
+it('does not count a download when the asset is opened inline', function () {
+    $asset = Asset::factory()->create();
+    placeAssetFile($asset);
+    $share = Share::factory()->forAsset($asset->id)->create();
+
+    $this->get(route('dam.share.download', $share->token).'?disposition=inline')->assertOk();
+
+    expect($share->fresh()->download_count)->toBe(0);
+});

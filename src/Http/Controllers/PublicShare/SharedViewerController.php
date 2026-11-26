@@ -136,7 +136,7 @@ class SharedViewerController extends Controller
 
         return $this->streamAsset(
             $asset,
-            $request->query('disposition', 'attachment'),
+            $this->resolveDisposition($request),
             fn () => $this->shareRepository->incrementDownload($share)
         );
     }
@@ -198,7 +198,7 @@ class SharedViewerController extends Controller
 
         return $this->streamAsset(
             $asset,
-            $request->query('disposition', 'attachment'),
+            $this->resolveDisposition($request),
             fn () => $this->shareRepository->incrementDownload($share)
         );
     }
@@ -289,6 +289,19 @@ class SharedViewerController extends Controller
         );
     }
 
+    /**
+     * Read the "disposition" query value as "inline" or "attachment"; anything else
+     * (including a non-string such as ?disposition[]=x) falls back to "attachment".
+     */
+    protected function resolveDisposition(Request $request): string
+    {
+        $disposition = $request->query('disposition');
+
+        return is_string($disposition) && strtolower($disposition) === 'inline'
+            ? 'inline'
+            : 'attachment';
+    }
+
     protected function streamAsset(Asset $asset, string $disposition, ?callable $onSuccess = null)
     {
         $disk = Directory::getAssetDisk();
@@ -303,9 +316,6 @@ class SharedViewerController extends Controller
         }
 
         $mimeType = Storage::disk($disk)->mimeType($path) ?: 'application/octet-stream';
-        $disposition = in_array(strtolower($disposition), ['inline', 'attachment'], true)
-            ? strtolower($disposition)
-            : 'attachment';
 
         if (! AssetHelper::isInlineSafeMime($mimeType)) {
             $disposition = 'attachment';
