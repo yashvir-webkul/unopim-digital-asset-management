@@ -4,17 +4,64 @@ declare(strict_types=1);
 
 namespace Webkul\DAM\Jobs\Concerns;
 
+use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Queue\Jobs\SyncJob;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Webkul\DAM\Exceptions\WebhookDeliveryFailedException;
 use Webkul\DAM\Helpers\AssetHelper;
 use Webkul\DAM\Models\Asset;
 use Webkul\User\Models\AdminProxy;
 use Webkul\Webhook\Models\Webhook;
 use Webkul\Webhook\Repositories\LogsRepository;
+use Webkul\Webhook\Repositories\WebhookRepository;
 use Webkul\Webhook\Validators\SafeWebhookUrl;
 
 trait InteractsWithAssetWebhook
 {
+    /**
+     * Active webhooks for this job's event, narrowed to the targeted one when set.
+     *
+     * @return Collection<int, Webhook>
+     */
+    protected function activeWebhooks(WebhookRepository $webhookRepository): Collection
+    {
+        $webhooks = $webhookRepository->getActiveForEvent($this->event);
+
+        if ($this->webhookId !== null) {
+            return $webhooks->where('id', $this->webhookId)->values();
+        }
+
+        return $webhooks;
+    }
+
+    /**
+     * Split a multi-subscriber delivery into one job per webhook, so each
+     * endpoint retries on its own and a retry never re-sends to endpoints
+     * that already succeeded.
+     *
+     * @param  Collection<int, Webhook>  $webhooks
+     */
+    protected function fanOutPerWebhook(Collection $webhooks): bool
+    {
+        if ($this->webhookId !== null || $webhooks->count() < 2) {
+            return false;
+        }
+
+        $dispatcher = resolve(Dispatcher::class);
+
+        foreach ($webhooks as $webhook) {
+            $job = clone $this;
+            $job->webhookId = (int) $webhook->id;
+            $job->job = null;
+
+            $dispatcher->dispatch($job->onQueue($this->queue ?? 'webhooks'));
+        }
+
+        return true;
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -40,7 +87,12 @@ trait InteractsWithAssetWebhook
     }
 
     /**
+     * Deliver and log one webhook call. Throws on a failed delivery so the
+     * queue retries the job up to $tries and then moves it to failed_jobs.
+     *
      * @param  array<string, mixed>  $payload
+     *
+     * @throws WebhookDeliveryFailedException
      */
     protected function deliverWebhook(Webhook $webhook, array $payload, string $sku, LogsRepository $logsRepository): void
     {
@@ -67,8 +119,6 @@ trait InteractsWithAssetWebhook
                 ->post($webhook->url);
         } catch (\Throwable $e) {
             $exception = $e;
-
-            report($e);
         }
 
         $status = $response?->successful() ? 1 : 0;
@@ -86,6 +136,15 @@ trait InteractsWithAssetWebhook
                 'response' => $response?->body() ?? $exception?->getMessage(),
             ],
         ]);
+
+        // The sync driver cannot retry; throwing there would only break the asset save.
+        if ($status === 0 && ! $this->job instanceof SyncJob) {
+            throw new WebhookDeliveryFailedException(
+                sprintf('Asset webhook #%d delivery failed for event "%s" (HTTP %s).', $webhook->id, $this->event, $httpCode ?? 'n/a'),
+                0,
+                $exception,
+            );
+        }
     }
 
     /**

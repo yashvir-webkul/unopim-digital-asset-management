@@ -27,13 +27,14 @@ class SendAssetWebhook implements ShouldQueue
         protected int $assetId,
         protected string $event,
         protected ?int $userId = null,
+        protected ?int $webhookId = null,
     ) {}
 
     public function handle(WebhookRepository $webhookRepository, LogsRepository $logsRepository): void
     {
-        $webhooks = $webhookRepository->getActiveForEvent($this->event);
+        $webhooks = $this->activeWebhooks($webhookRepository);
 
-        if ($webhooks->isEmpty()) {
+        if ($webhooks->isEmpty() || $this->fanOutPerWebhook($webhooks)) {
             return;
         }
 
@@ -51,9 +52,7 @@ class SendAssetWebhook implements ShouldQueue
 
         $sku = $asset->path ?: (string) $asset->id;
 
-        foreach ($webhooks as $webhook) {
-            $this->deliverWebhook($webhook, $payload, $sku, $logsRepository);
-        }
+        $this->deliverWebhook($webhooks->first(), $payload, $sku, $logsRepository);
     }
 
     /**

@@ -29,6 +29,7 @@ class SendBulkAssetWebhook implements ShouldQueue
         protected array $assetIds,
         protected string $event,
         protected ?int $userId = null,
+        protected ?int $webhookId = null,
     ) {}
 
     public function handle(WebhookRepository $webhookRepository, LogsRepository $logsRepository): void
@@ -37,9 +38,9 @@ class SendBulkAssetWebhook implements ShouldQueue
             return;
         }
 
-        $webhooks = $webhookRepository->getActiveForEvent($this->event);
+        $webhooks = $this->activeWebhooks($webhookRepository);
 
-        if ($webhooks->isEmpty()) {
+        if ($webhooks->isEmpty() || $this->fanOutPerWebhook($webhooks)) {
             return;
         }
 
@@ -57,8 +58,6 @@ class SendBulkAssetWebhook implements ShouldQueue
 
         $sku = 'bulk ('.$assets->count().' assets)';
 
-        foreach ($webhooks as $webhook) {
-            $this->deliverWebhook($webhook, $payload, $sku, $logsRepository);
-        }
+        $this->deliverWebhook($webhooks->first(), $payload, $sku, $logsRepository);
     }
 }
