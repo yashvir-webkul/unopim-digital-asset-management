@@ -8,8 +8,10 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Psr\Http\Message\ResponseInterface;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\DAM\ApiDataSource\AssetDataSource;
+use Webkul\DAM\Exceptions\MediaTooLargeException;
 use Webkul\DAM\Filesystem\FileStorer;
 use Webkul\DAM\Helpers\AssetHelper;
 use Webkul\DAM\Jobs\GeneratePdfThumbnail;
@@ -66,6 +68,11 @@ class AssetController extends Controller
             return trim($url, ' "');
         }, $newImageUrl);
 
+        $maxBytes = $this->remoteDownloadMaxBytes();
+        $sizeMessage = trans('dam::app.admin.dam.asset.datagrid.file-too-large', [
+            'size' => $this->humanReadableSize(intdiv($maxBytes, 1024)),
+        ]);
+
         $files = [];
         $errors = [];
 
@@ -94,11 +101,15 @@ class AssetController extends Controller
                     $fileName .= '.'.$extension;
                 }
 
-                $tempPath = sys_get_temp_dir().'/'.uniqid().'_'.$fileName;
+                $tempPath = $this->downloadToTempFile($url, $maxBytes);
 
-                $response = Http::sink($tempPath)->withOptions(SafeWebhookUrl::httpOptions($url))->get($url);
+                if ($tempPath === null) {
+                    $errors[] = $sizeMessage.': '.$url;
 
-                if ($response->failed() || ! file_exists($tempPath) || filesize($tempPath) === 0) {
+                    continue;
+                }
+
+                if ($tempPath === false) {
                     $errors[] = "Failed to download: $url";
 
                     continue;
@@ -117,6 +128,8 @@ class AssetController extends Controller
         }
 
         if (! empty($errors)) {
+            $this->deleteTempFiles($files);
+
             return response()->json([
                 'success'         => false,
                 'message'         => trans('dam::app.admin.dam.asset.datagrid.file-process-failed'),
@@ -126,6 +139,79 @@ class AssetController extends Controller
         }
 
         return $files;
+    }
+
+    /**
+     * Download a remote file into a temp file, refusing anything above $maxBytes.
+     * The curl handler is kept (no "stream" option) so the SafeWebhookUrl DNS pin
+     * stays in force. Returns the temp path, null when the file is too large, or
+     * false when the download failed or was empty. No temp file is left on failure.
+     */
+    protected function downloadToTempFile(string $url, int $maxBytes): string|false|null
+    {
+        $tempPath = tempnam(sys_get_temp_dir(), 'dam_api_url_');
+        $tooLarge = false;
+
+        $guard = function (int $size) use ($maxBytes, &$tooLarge): void {
+            if ($size > $maxBytes) {
+                $tooLarge = true;
+
+                throw new MediaTooLargeException('Media file exceeds the maximum allowed size.');
+            }
+        };
+
+        try {
+            $response = Http::sink($tempPath)->withOptions(SafeWebhookUrl::httpOptions($url) + [
+                'on_headers' => fn (ResponseInterface $headers) => $guard((int) $headers->getHeaderLine('Content-Length')),
+                'progress'   => fn (int $expected, int $downloaded) => $guard(max($expected, $downloaded)),
+            ])->get($url);
+        } catch (\Throwable $e) {
+            @unlink($tempPath);
+
+            if ($tooLarge) {
+                return null;
+            }
+
+            throw $e;
+        }
+
+        clearstatcache(true, $tempPath);
+        $size = file_exists($tempPath) ? (int) filesize($tempPath) : 0;
+
+        if ($size > $maxBytes || (int) $response->header('Content-Length') > $maxBytes) {
+            @unlink($tempPath);
+
+            return null;
+        }
+
+        if ($response->failed() || $size === 0) {
+            @unlink($tempPath);
+
+            return false;
+        }
+
+        return $tempPath;
+    }
+
+    /**
+     * Largest remote file the API upload by URL accepts, in bytes; the same
+     * limit as a normal file upload.
+     */
+    protected function remoteDownloadMaxBytes(): int
+    {
+        $maxKb = AssetHelper::getMaxUploadSizeKb();
+
+        return $maxKb >= intdiv(PHP_INT_MAX, 1024) ? PHP_INT_MAX : $maxKb * 1024;
+    }
+
+    /**
+     * @param  array<int, UploadedFile>  $files
+     */
+    protected function deleteTempFiles(array $files): void
+    {
+        foreach ($files as $file) {
+            @unlink($file->getPathname());
+        }
     }
 
     private function isSafeRemoteUrl(string $url): bool
@@ -154,6 +240,12 @@ class AssetController extends Controller
             if ($files instanceof JsonResponse) {
                 return $files;
             }
+
+            try {
+                return $this->storeUploadedFiles($request, $files);
+            } finally {
+                $this->deleteTempFiles($files);
+            }
         } else {
             $request->validate([
                 'files'   => 'required|array',
@@ -166,6 +258,14 @@ class AssetController extends Controller
             $files = $request->file('files');
         }
 
+        return $this->storeUploadedFiles($request, $files);
+    }
+
+    /**
+     * @param  array<int, mixed>  $files
+     */
+    protected function storeUploadedFiles(Request $request, array $files): JsonResponse
+    {
         $directoryId = $request->get('directory_id');
 
         $service = app(DirectoryPermissionService::class);
