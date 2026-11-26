@@ -2,43 +2,44 @@
 
 namespace Webkul\DAM\Listeners;
 
-use Webkul\Category\Contracts\CategoryField;
 use Webkul\Category\Repositories\CategoryFieldRepository;
 use Webkul\DAM\Repositories\AssetRepository;
 use Webkul\DAM\Repositories\AssetResourceMappingRepository;
+use Webkul\DAM\Traits\CollectsAssetIds;
 
 class Category
 {
+    use CollectsAssetIds;
+
     public function __construct(
         protected AssetRepository $assetRepository,
         protected CategoryFieldRepository $categoryFieldRepository,
         protected AssetResourceMappingRepository $assetResourceMappingRepository
     ) {}
 
+    /**
+     * Reads every locale, not just the requested one: syncing one locale prunes the field's mappings to that value, unlinking assets other locales still hold.
+     */
     public function afterUpdateOrCreate($category)
     {
         $activeAssetFields = $this->categoryFieldRepository->findWhere(['status' => 1, 'type' => 'asset']);
 
-        $additionalData = $category->additional_data;
+        $additionalData = (array) $category->additional_data;
 
         $categoryId = $category->id;
-
-        $currentLocaleCode = core()->getRequestedLocaleCode();
 
         foreach ($activeAssetFields as $assetField) {
             $fieldCode = $assetField->code;
 
-            $value = $this->getCategoryValue($additionalData, $assetField, $fieldCode, $currentLocaleCode);
+            $assetIds = $this->collectAssetIdsAcrossScopes($additionalData, $fieldCode);
 
-            if (empty($value)) {
+            if (empty($assetIds)) {
                 $this->assetResourceMappingRepository->deleteCategoryAssetMappings($categoryId, $fieldCode);
 
                 continue;
             }
 
-            $value = str_contains($value, ',') ? explode(',', $value) : [$value];
-
-            $assets = $this->assetRepository->findWhereIn('id', $value);
+            $assets = $this->assetRepository->findWhereIn('id', $assetIds);
 
             if (! $assets) {
                 continue;
@@ -46,18 +47,5 @@ class Category
 
             $this->assetResourceMappingRepository->createCategoryAssetMappings($assets, $categoryId, $fieldCode);
         }
-    }
-
-    protected function getCategoryValue(
-        array $additionalData,
-        CategoryField $field,
-        string $fieldCode,
-        string $currentLocaleCode
-    ): mixed {
-        if ($field->isLocaleBasedField()) {
-            return $additionalData['locale_specific'][$currentLocaleCode][$fieldCode] ?? null;
-        }
-
-        return $additionalData['common'][$fieldCode] ?? null;
     }
 }

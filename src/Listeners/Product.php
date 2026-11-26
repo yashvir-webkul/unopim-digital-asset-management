@@ -33,12 +33,12 @@ class Product
             ->whereIn('id', $productIds)
             ->chunkById(100, function ($products): void {
                 foreach ($products as $product) {
-                    $this->syncImportedAssetMappings($product);
+                    $this->syncAssetMappings($product);
                 }
             });
     }
 
-    protected function syncImportedAssetMappings($product): void
+    protected function syncAssetMappings($product): void
     {
         $family = $product->attribute_family;
 
@@ -69,40 +69,11 @@ class Product
         }
     }
 
-    public function afterCreateOrupdate($product)
+    /**
+     * Reads every scope, not just the requested one: syncing one locale/channel prunes the field's mappings to that value, unlinking assets other scopes still hold.
+     */
+    public function afterCreateOrupdate($product): void
     {
-        $productValues = $product->values;
-
-        $productId = $product->id;
-
-        $currentLocaleCode = core()->getRequestedLocaleCode();
-
-        $currentChannelCode = core()->getRequestedChannelCode();
-
-        $activeAssetFields = $product->attribute_family->customAttributes()->where('attributes.type', 'asset')->get();
-
-        foreach ($activeAssetFields as $assetField) {
-            $fieldCode = $assetField->code;
-
-            $value = $assetField->getValueFromProductValues($productValues, $currentChannelCode, $currentLocaleCode);
-
-            if (empty($value)) {
-                $this->assetResourceMappingRepository->deleteProductAssetMappings($productId, $fieldCode);
-
-                continue;
-            }
-
-            if (! is_array($value)) {
-                $value = str_contains($value, ',') ? explode(',', $value) : [$value];
-            }
-
-            $assets = $this->assetRepository->findWhereIn('id', $value);
-
-            if (! $assets) {
-                continue;
-            }
-
-            $this->assetResourceMappingRepository->createProductAssetMappings($assets, $productId, $fieldCode);
-        }
+        $this->syncAssetMappings($product);
     }
 }
