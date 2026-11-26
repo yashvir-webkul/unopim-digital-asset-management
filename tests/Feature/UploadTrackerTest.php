@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -222,4 +223,28 @@ it('reports stats and 404s for an unknown session', function () {
 
     $this->getJson(route('admin.dam.assets.upload.stats', (string) Str::uuid()))
         ->assertStatus(404);
+});
+
+it('returns 404 without querying the tracker when the upload route id is not a uuid', function (string $method, string $action, string $id) {
+    $trackerQueries = 0;
+    DB::listen(function ($query) use (&$trackerQueries) {
+        if (str_contains($query->sql, 'dam_upload_trackers')) {
+            $trackerQueries++;
+        }
+    });
+
+    $this->json($method, '/admin/dam/assets/upload/'.$action.'/'.$id)->assertNotFound();
+
+    expect($trackerQueries)->toBe(0);
+})->with([
+    ['GET', 'stats'],
+    ['POST', 'pause'],
+    ['POST', 'resume'],
+    ['POST', 'cancel'],
+    ['POST', 'retry'],
+    ['POST', 'complete'],
+])->with(['1', 'abc', '00000000-0000-0000-0000-00000000000g']);
+
+it('still resolves upload routes for a valid but unknown uuid', function () {
+    $this->postJson(route('admin.dam.assets.upload.pause', (string) Str::uuid()))->assertNotFound();
 });
