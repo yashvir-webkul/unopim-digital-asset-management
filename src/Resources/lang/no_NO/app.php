@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Arkivet inneholder en mappe med navnet ":name" i stedet for "assets", så ingen av ressursene kunne importeres. Gi den nytt navn til "assets" og sørg for at mappene under samsvarer med stiene i datafilen din, for eksempel "assets/Root/Seed/Tech Sheets/Cotton/". macOS lagrer en "/" skrevet i et mappenavn som ":", noe som er den vanlige årsaken.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM-ressurs',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Ressurser',

@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Arşiv, "assets" yerine ":name" adlı bir klasör içeriyor; bu nedenle varlıklarından hiçbiri içe aktarılamadı. Klasörü "assets" olarak yeniden adlandırın ve altındaki klasörlerin veri dosyanızdaki yollarla eşleşmesini sağlayın, örneğin "assets/Root/Seed/Tech Sheets/Cotton/". macOS, klasör adına yazılan "/" karakterini ":" olarak kaydeder; olağan neden budur.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM Varlığı',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Varlıklar',

@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Arhiva conține un folder numit ":name" în loc de "assets", așa că niciunul dintre activele sale nu a putut fi importat. Redenumiți-l în "assets" și păstrați folderele de sub el potrivite cu căile din fișierul de date, de exemplu "assets/Root/Seed/Tech Sheets/Cotton/". macOS salvează un "/" tastat în numele unui folder ca ":", ceea ce este cauza obișnuită.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Resursă DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Resurse',

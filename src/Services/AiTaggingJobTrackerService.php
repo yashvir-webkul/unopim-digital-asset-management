@@ -19,6 +19,8 @@ use Webkul\DataTransfer\Services\JobLogger;
  */
 class AiTaggingJobTrackerService
 {
+    public const ENTITY_TYPE = 'dam_asset';
+
     protected const JOB_INSTANCE_CODE = 'dam_ai_tagging';
 
     public function __construct(
@@ -124,7 +126,7 @@ class AiTaggingJobTrackerService
                 'type'                  => 'system',
                 'action'                => 'tag',
                 'code'                  => self::JOB_INSTANCE_CODE,
-                'entity_type'           => 'dam_asset',
+                'entity_type'           => self::ENTITY_TYPE,
                 'validation_strategy'   => 'skip-errors',
                 'allowed_errors'        => 0,
                 'field_separator'       => null,

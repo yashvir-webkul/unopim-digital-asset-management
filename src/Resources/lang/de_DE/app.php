@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Das Archiv enthält einen Ordner namens ":name" statt "assets", daher konnte keines seiner Assets importiert werden. Benennen Sie ihn in "assets" um und stellen Sie sicher, dass die Ordner darunter den Pfaden in Ihrer Datendatei entsprechen, z. B. "assets/Root/Seed/Tech Sheets/Cotton/". macOS speichert ein in einen Ordnernamen eingegebenes "/" als ":", was die übliche Ursache ist.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM-Asset',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Medienobjekte',

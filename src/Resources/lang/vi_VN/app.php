@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Kho lưu trữ chứa một thư mục tên ":name" thay vì "assets", nên không thể nhập bất kỳ tài sản nào của nó. Hãy đổi tên thành "assets" và giữ các thư mục bên dưới khớp với đường dẫn trong tệp dữ liệu của bạn, ví dụ "assets/Root/Seed/Tech Sheets/Cotton/". macOS lưu ký tự "/" gõ trong tên thư mục thành ":", đây là nguyên nhân thường gặp.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Tài sản DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Tài sản',

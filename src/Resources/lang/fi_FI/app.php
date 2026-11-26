@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Arkisto sisältää kansion nimeltä ":name" kansion "assets" sijaan, joten yhtään sen aineistoa ei voitu tuoda. Nimeä se uudelleen muotoon "assets" ja pidä sen alla olevat kansiot datatiedoston polkujen mukaisina, esimerkiksi "assets/Root/Seed/Tech Sheets/Cotton/". macOS tallentaa kansion nimeen kirjoitetun "/"-merkin muodossa ":", mikä on tavallisin syy.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM-resurssi',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Resurssit',

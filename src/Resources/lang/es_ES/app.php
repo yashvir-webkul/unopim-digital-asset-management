@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'El archivo contiene una carpeta llamada ":name" en lugar de "assets", por lo que no se pudo importar ninguno de sus activos. Cámbiele el nombre a "assets" y mantenga las carpetas inferiores coincidiendo con las rutas de su archivo de datos, por ejemplo "assets/Root/Seed/Tech Sheets/Cotton/". macOS guarda una "/" escrita en el nombre de una carpeta como ":", que es la causa habitual.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Recurso DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Recursos',

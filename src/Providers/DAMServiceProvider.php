@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Webkul\Admin\DataGrids\Catalog\ProductDataGrid;
+use Webkul\Admin\DataGrids\Settings\DataTransfer\JobTrackerGrid;
 use Webkul\Admin\Http\Controllers\Settings\DataTransfer\ImportController;
 use Webkul\Admin\Http\Requests\ProductForm;
 use Webkul\AdminApi\ApiDataSource\Catalog\ConfigurableProductDataSource as BaseConfigurableProductDataSource;
@@ -246,6 +247,8 @@ class DAMServiceProvider extends ServiceProvider
         $this->app->bind(Import::class, \Webkul\DAM\Helpers\Import::class);
 
         $this->app->bind(ImportController::class, \Webkul\DAM\Http\Controllers\Settings\DataTransfer\ImportController::class);
+
+        $this->app->bind(JobTrackerGrid::class, \Webkul\DAM\DataGrids\DataTransfer\JobTrackerGrid::class);
 
         if ($this->pimEnabled()) {
             $this->app->bind(ProductAttributeValuesNormalizer::class, ProductValuesNormalizer::class);

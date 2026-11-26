@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => '壓縮檔中包含名為「:name」的資料夾而非「assets」，因此無法匯入其中的任何資產。請將其重新命名為「assets」，並讓其下的資料夾與資料檔中的路徑一致，例如「assets/Root/Seed/Tech Sheets/Cotton/」。macOS 會將資料夾名稱中輸入的「/」儲存為「:」，這是常見原因。',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM 資產',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => '資產',

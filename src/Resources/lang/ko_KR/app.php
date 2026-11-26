@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => '아카이브에 "assets" 대신 ":name"이라는 폴더가 있어 에셋을 하나도 가져올 수 없었습니다. 이름을 "assets"로 바꾸고 그 아래 폴더가 데이터 파일의 경로(예: "assets/Root/Seed/Tech Sheets/Cotton/")와 일치하도록 유지하세요. macOS는 폴더 이름에 입력한 "/"를 ":"로 저장하며, 이것이 일반적인 원인입니다.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM 에셋',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => '자산',

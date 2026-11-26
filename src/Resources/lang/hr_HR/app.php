@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Arhiva sadrži mapu naziva ":name" umjesto "assets", pa nijedan njezin sadržaj nije bilo moguće uvesti. Preimenujte je u "assets" i neka mape ispod nje odgovaraju putanjama u vašoj datoteci s podacima, na primjer "assets/Root/Seed/Tech Sheets/Cotton/". macOS sprema "/" upisan u naziv mape kao ":", što je uobičajeni uzrok.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM resurs',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Resursi',

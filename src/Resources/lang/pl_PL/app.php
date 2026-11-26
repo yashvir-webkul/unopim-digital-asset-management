@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Archiwum zawiera folder o nazwie ":name" zamiast "assets", więc nie udało się zaimportować żadnego z jego zasobów. Zmień jego nazwę na "assets" i zachowaj foldery poniżej zgodne ze ścieżkami w pliku danych, np. "assets/Root/Seed/Tech Sheets/Cotton/". macOS zapisuje znak "/" wpisany w nazwie folderu jako ":", co jest typową przyczyną.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Zasób DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Zasoby',

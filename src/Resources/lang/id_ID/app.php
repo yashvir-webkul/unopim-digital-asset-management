@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Arsip berisi folder bernama ":name" alih-alih "assets", sehingga tidak ada asetnya yang dapat diimpor. Ubah namanya menjadi "assets" dan pastikan folder di bawahnya sesuai dengan jalur di file data Anda, misalnya "assets/Root/Seed/Tech Sheets/Cotton/". macOS menyimpan "/" yang diketik pada nama folder sebagai ":", yang merupakan penyebab umumnya.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Aset DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Aset',

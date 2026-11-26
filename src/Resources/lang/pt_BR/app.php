@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'O arquivo contém uma pasta chamada ":name" em vez de "assets", então nenhum dos seus ativos pôde ser importado. Renomeie-a para "assets" e mantenha as pastas abaixo dela correspondendo aos caminhos do seu arquivo de dados, por exemplo "assets/Root/Seed/Tech Sheets/Cotton/". O macOS grava uma "/" digitada no nome de uma pasta como ":", que é a causa habitual.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Ativo DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Recursos',

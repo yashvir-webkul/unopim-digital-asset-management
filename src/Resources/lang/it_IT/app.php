@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'L\'archivio contiene una cartella denominata ":name" anziché "assets", quindi nessuna delle sue risorse è stata importata. Rinominala in "assets" e mantieni le cartelle sottostanti corrispondenti ai percorsi del file dati, ad esempio "assets/Root/Seed/Tech Sheets/Cotton/". macOS salva una "/" digitata nel nome di una cartella come ":", che è la causa abituale.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'Risorsa DAM',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Risorse',

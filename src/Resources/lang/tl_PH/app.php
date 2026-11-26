@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Naglalaman ang archive ng folder na pinangalanang ":name" sa halip na "assets", kaya wala sa mga asset nito ang na-import. Palitan ang pangalan nito ng "assets" at panatilihing tugma ang mga folder sa ilalim nito sa mga path sa iyong data file, halimbawa "assets/Root/Seed/Tech Sheets/Cotton/". Sine-save ng macOS ang "/" na itinipa sa pangalan ng folder bilang ":", na siyang karaniwang dahilan.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM Asset',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Mga Asset',

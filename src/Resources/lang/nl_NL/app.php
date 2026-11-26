@@ -954,6 +954,12 @@ return [
             'asset-tree-misnamed'        => 'Het archief bevat een map met de naam ":name" in plaats van "assets", waardoor geen van de assets kon worden geïmporteerd. Hernoem de map naar "assets" en zorg dat de onderliggende mappen overeenkomen met de paden in uw gegevensbestand, bijvoorbeeld "assets/Root/Seed/Tech Sheets/Cotton/". macOS slaat een "/" in een mapnaam op als ":", wat de gebruikelijke oorzaak is.',
         ],
 
+        'job-tracker' => [
+            'types' => [
+                'dam-asset' => 'DAM-asset',
+            ],
+        ],
+
         'importers' => [
             'assets' => [
                 'title'      => 'Bestanden',
