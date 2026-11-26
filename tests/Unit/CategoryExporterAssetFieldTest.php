@@ -48,3 +48,11 @@ it('still resolves a linked asset field to its stored path', function () {
 
     expect($fieldValues[$this->assetFieldCode])->toBe($this->asset->path);
 });
+
+it('resolves an asset field stored as a list of ids to their paths', function () {
+    $second = Asset::factory()->create(['path' => 'assets/Root/'.Str::random(6).'.jpg']);
+
+    $fieldValues = damCallExporterSetFields($this->exporter, [$this->assetFieldCode => [$this->asset->id, $second->id]]);
+
+    expect($fieldValues[$this->assetFieldCode])->toBe($this->asset->path.', '.$second->path);
+});

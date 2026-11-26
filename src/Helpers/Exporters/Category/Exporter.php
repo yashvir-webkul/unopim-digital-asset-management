@@ -54,8 +54,11 @@ class Exporter extends CategoryExporter
 
                 $isAssetField = false;
 
-                if ($fieldType === EventServiceProvider::ASSET_ATTRIBUTE_TYPE && is_string($exitingFilePaths)) {
-                    $assetIds = array_filter(array_map('trim', explode(',', $exitingFilePaths)), 'strlen');
+                if ($fieldType === EventServiceProvider::ASSET_ATTRIBUTE_TYPE && (is_string($exitingFilePaths) || is_array($exitingFilePaths))) {
+                    $assetIds = array_filter(
+                        array_map(fn ($id): string => trim((string) $id), is_array($exitingFilePaths) ? $exitingFilePaths : explode(',', $exitingFilePaths)),
+                        'strlen'
+                    );
 
                     $assetsById = $this->assetRepository->findWhereIn('id', $assetIds)->keyBy(fn ($asset) => (string) $asset->id);
 
