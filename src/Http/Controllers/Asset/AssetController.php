@@ -945,7 +945,7 @@ class AssetController extends Controller
                 'message' => trans('dam::app.admin.dam.asset.delete-failed-due-to-attached-resources', [
                     'assets' => $asset->file_name,
                 ]),
-            ], 404);
+            ], 409);
         }
 
         $disk = Directory::getAssetDisk();
@@ -1031,7 +1031,7 @@ class AssetController extends Controller
                     'message' => trans('dam::app.admin.dam.asset.delete-failed-due-to-attached-resources', [
                         'assets' => implode(', ', $skippedAssetNames),
                     ]),
-                ], 404);
+                ], 409);
             }
 
             return new JsonResponse([

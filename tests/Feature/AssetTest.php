@@ -185,6 +185,26 @@ it('should mass delete the asset successfully', function () {
     }
 });
 
+it('should return 409 when mass deleting includes an asset with linked resources', function () {
+    $linked = Asset::factory()->create();
+    $free = Asset::factory()->create();
+
+    AssetResourceMapping::create([
+        'type'          => 'product',
+        'related_field' => 'image',
+        'dam_asset_id'  => $linked->id,
+    ]);
+
+    $this->postJson(route('admin.dam.assets.mass_delete'), ['indices' => [$linked->id, $free->id]])
+        ->assertStatus(409)
+        ->assertJsonFragment(['message' => trans('dam::app.admin.dam.asset.delete-failed-due-to-attached-resources', [
+            'assets' => $linked->file_name,
+        ])]);
+
+    $this->assertDatabaseHas($this->getFullTableName(Asset::class), ['id' => $linked->id]);
+    $this->assertDatabaseMissing($this->getFullTableName(Asset::class), ['id' => $free->id]);
+});
+
 it('should allow downloading the asset file', function () {
     $disk = Directory::getAssetDisk();
     Storage::fake($disk);
@@ -346,7 +366,7 @@ it('should prevent deletion of an asset that has linked resources', function () 
 
     $response = $this->deleteJson(route('admin.dam.assets.destroy', $asset->id));
 
-    $response->assertStatus(404)
+    $response->assertStatus(409)
         ->assertJson([
             'success' => false,
             'message' => trans('dam::app.admin.dam.asset.delete-failed-due-to-attached-resources', [

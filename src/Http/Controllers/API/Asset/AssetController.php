@@ -658,7 +658,7 @@ class AssetController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => trans('dam::app.admin.dam.asset.delete-failed-due-to-attached-resources', ['assets' => $asset->file_name]),
-            ], 404);
+            ], 409);
         }
 
         $disk = Directory::getAssetDisk();

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Webkul\DAM\Jobs\TagAssetWithAi;
 use Webkul\DAM\Models\Asset;
+use Webkul\DAM\Models\AssetResourceMapping;
 use Webkul\DAM\Models\Directory;
 use Webkul\DAM\Services\DirectoryPermissionService;
 use Webkul\DAM\Services\MetadataExtractionService;
@@ -217,6 +218,26 @@ it('returns 404 when destroying a non-existent asset via api', function () {
     $this->withHeaders($this->headers)
         ->deleteJson(route('admin.api.dam.assets.destroy', 999999))
         ->assertStatus(404);
+});
+
+it('returns 409 when destroying an asset linked to a product via api', function () {
+    $asset = Asset::factory()->create();
+
+    AssetResourceMapping::create([
+        'type'          => 'product',
+        'related_field' => 'image',
+        'dam_asset_id'  => $asset->id,
+    ]);
+
+    $this->withHeaders($this->headers)
+        ->deleteJson(route('admin.api.dam.assets.destroy', $asset->id))
+        ->assertStatus(409)
+        ->assertJsonPath('success', false)
+        ->assertJsonPath('message', trans('dam::app.admin.dam.asset.delete-failed-due-to-attached-resources', [
+            'assets' => $asset->file_name,
+        ]));
+
+    $this->assertDatabaseHas($this->getFullTableName(Asset::class), ['id' => $asset->id]);
 });
 
 it('returns 404 when downloading a missing asset via api', function () {
