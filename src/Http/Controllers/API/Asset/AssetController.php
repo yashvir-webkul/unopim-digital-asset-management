@@ -22,6 +22,7 @@ use Webkul\DAM\Repositories\AssetPropertyRepository;
 use Webkul\DAM\Repositories\AssetRepository;
 use Webkul\DAM\Repositories\AssetTagRepository;
 use Webkul\DAM\Repositories\DirectoryRepository;
+use Webkul\DAM\Services\AiTaggingDispatcher;
 use Webkul\DAM\Services\AssetAutoTaggingService;
 use Webkul\DAM\Services\DirectoryPermissionService;
 use Webkul\DAM\Services\MetadataExtractionService;
@@ -240,10 +241,6 @@ class AssetController extends Controller
                     GeneratePdfThumbnail::dispatch($asset->id)->afterCommit();
                 }
 
-                if ($asset->file_type === 'image' && $this->autoTagEligible() && $this->autoTaggingService->isEnabled()) {
-                    TagAssetWithAi::dispatch($asset->id, $disk, userId: auth()->guard('api')->id())->afterCommit();
-                }
-
                 $assetIds[] = $asset->id;
                 $uploadFiles[] = $asset;
             } catch (\Exception $e) {
@@ -253,6 +250,10 @@ class AssetController extends Controller
 
         if ($request->has('directory_id')) {
             $this->mappedWithDirectory($assetIds, $request->get('directory_id'));
+        }
+
+        if ($uploadFiles && $this->autoTagEligible() && $this->autoTaggingService->isEnabled()) {
+            resolve(AiTaggingDispatcher::class)->dispatch(collect($uploadFiles), auth()->guard('api')->id());
         }
 
         $response = [

@@ -8,6 +8,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Webkul\Admin\Http\Controllers\Controller;
@@ -277,6 +278,8 @@ class AssetController extends Controller
             ? Asset::whereIn('path', $candidatePaths)->get()->keyBy('path')
             : collect();
 
+        $queuedAssets = [];
+
         try {
             foreach ($files as $file) {
                 if (! $file instanceof UploadedFile) {
@@ -327,7 +330,7 @@ class AssetController extends Controller
                     $assetIds[] = $asset->id;
                 }
 
-                $this->queueAssetFinalisation($asset, $tracker);
+                $queuedAssets[] = $asset;
 
                 $uploadFiles[] = $asset;
             }
@@ -352,6 +355,8 @@ class AssetController extends Controller
                     ? $forbiddenFileMessage
                     : trans('dam::app.admin.dam.asset.datagrid.files-upload-failed'),
             ], 500);
+        } finally {
+            $this->queueAssetsFinalisation($queuedAssets, $tracker, (int) $directoryId);
         }
     }
 
@@ -456,6 +461,8 @@ class AssetController extends Controller
         };
 
         $assetsByDir = [];
+
+        $queuedAssets = [];
 
         try {
             $fileJobs = [];
@@ -571,7 +578,7 @@ class AssetController extends Controller
                     $assetsByDir[$targetDirId][] = $asset->id;
                 }
 
-                $this->queueAssetFinalisation($asset, $tracker);
+                $queuedAssets[] = $asset;
 
                 $uploadedAssets[] = $asset;
             }
@@ -601,6 +608,8 @@ class AssetController extends Controller
                 'success' => false,
                 'message' => trans('dam::app.admin.dam.index.directory.creation-failed'),
             ], 500);
+        } finally {
+            $this->queueAssetsFinalisation($queuedAssets, $tracker, $directoryId);
         }
     }
 
@@ -703,7 +712,7 @@ class AssetController extends Controller
 
             $this->dispatchThumbnailJob($asset->fresh());
 
-            if ($asset->file_type === 'image' && $this->autoTagEligible() && $this->autoTaggingService->isEnabled()) {
+            if ($this->shouldAutoTag($asset)) {
                 TagAssetWithAi::dispatch($asset->id, $disk, userId: auth()->id())->afterCommit();
             }
         }
@@ -740,6 +749,36 @@ class AssetController extends Controller
     }
 
     /**
+     * Without an upload session, a multi-image request gets its own tracker so its AI tagging shows as one Job Tracker entry rather than one per image.
+     *
+     * @param  array<int, Asset>  $assets
+     */
+    protected function queueAssetsFinalisation(array $assets, ?UploadTracker $tracker, int $directoryId): void
+    {
+        if (! $tracker && count(array_filter($assets, $this->shouldAutoTag(...))) > 1) {
+            $tracker = UploadTracker::create([
+                'uuid'         => (string) Str::uuid(),
+                'user_id'      => auth()->id(),
+                'directory_id' => $directoryId,
+                'state'        => UploadTracker::STATE_PROCESSING,
+                'total_files'  => count($assets),
+                'started_at'   => now(),
+            ]);
+        }
+
+        foreach ($assets as $asset) {
+            $this->queueAssetFinalisation($asset, $tracker);
+        }
+    }
+
+    protected function shouldAutoTag(Asset $asset): bool
+    {
+        return $asset->file_type === 'image'
+            && $this->autoTagEligible()
+            && $this->autoTaggingService->isEnabled();
+    }
+
+    /**
      * Creates the tag batch now rather than in the queued job, so the tracker's total stays fixed for the session.
      */
     protected function queueAssetFinalisation(Asset $asset, ?UploadTracker $tracker): void
@@ -756,7 +795,7 @@ class AssetController extends Controller
                 'state'             => UploadBatch::STATE_PENDING,
             ])->id;
 
-            if ($autoTagEligible && $asset->file_type === 'image' && $this->autoTaggingService->isEnabled()) {
+            if ($this->shouldAutoTag($asset)) {
                 $tagBatchId = UploadBatch::create([
                     'upload_tracker_id' => $tracker->id,
                     'asset_id'          => $asset->id,
