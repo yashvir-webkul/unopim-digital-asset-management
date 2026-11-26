@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Nabigo ang pag-load ng mga AI platform.',
                         'error-select-color'       => 'Pumili ng kulay ng background.',
                         'error-operation'          => 'Nabigo ang operasyon. Pakisubukang muli.',
+                        'error-resize-too-large'   => 'Masyadong malaki ang na-resize na larawan (:widthx:height px). Ang bawat gilid ay hanggang :max px lamang at ang larawan ay hanggang :megapixel megapixel lamang.',
                         'success-updated'          => 'Matagumpay na na-update ang larawan.',
                         'success-adjusted'         => 'Matagumpay na na-adjust ang larawan.',
                         'success-transformed'      => 'Matagumpay na na-transform ang larawan.',

@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'KI-Plattformen konnten nicht geladen werden.',
                         'error-select-color'       => 'Bitte eine Hintergrundfarbe auswählen.',
                         'error-operation'          => 'Vorgang fehlgeschlagen. Bitte versuchen Sie es erneut.',
+                        'error-resize-too-large'   => 'Das skalierte Bild (:widthx:height px) ist zu groß. Jede Seite darf höchstens :max px und das Bild höchstens :megapixel Megapixel groß sein.',
                         'success-updated'          => 'Bild erfolgreich aktualisiert.',
                         'success-adjusted'         => 'Bild erfolgreich angepasst.',
                         'success-transformed'      => 'Bild erfolgreich transformiert.',

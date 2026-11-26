@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Det gick inte att läsa in AI-plattformar.',
                         'error-select-color'       => 'Välj en bakgrundsfärg.',
                         'error-operation'          => 'Åtgärden misslyckades. Försök igen.',
+                        'error-resize-too-large'   => 'Den skalade bilden (:widthx:height px) är för stor. Varje sida får vara högst :max px och bilden högst :megapixel megapixel.',
                         'success-updated'          => 'Bild uppdaterad.',
                         'success-adjusted'         => 'Bild justerad.',
                         'success-transformed'      => 'Bild transformerad.',

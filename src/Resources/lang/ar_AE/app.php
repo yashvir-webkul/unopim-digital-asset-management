@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'فشل تحميل منصات الذكاء الاصطناعي.',
                         'error-select-color'       => 'الرجاء اختيار لون للخلفية.',
                         'error-operation'          => 'فشلت العملية. يرجى المحاولة مرة أخرى.',
+                        'error-resize-too-large'   => 'الصورة بعد تغيير الحجم (:widthx:height بكسل) كبيرة جدًا. الحد الأقصى لكل جانب :max بكسل وللصورة :megapixel ميغابكسل.',
                         'success-updated'          => 'تم تحديث الصورة بنجاح.',
                         'success-adjusted'         => 'تم ضبط الصورة بنجاح.',
                         'success-transformed'      => 'تم تحويل الصورة بنجاح.',

@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'AI платформуудыг ачаалж чадсангүй.',
                         'error-select-color'       => 'Арын өнгийг сонгоно уу.',
                         'error-operation'          => 'Үйлдэл амжилтгүй болсон. Дахин оролдоно уу.',
+                        'error-resize-too-large'   => 'Хэмжээг өөрчилсөн зураг (:widthx:height px) хэт том байна. Тал бүр дээд тал нь :max px, зураг дээд тал нь :megapixel мегапиксел байж болно.',
                         'success-updated'          => 'Зураг амжилттай шинэчлэгдлээ.',
                         'success-adjusted'         => 'Зураг амжилттай тохируулагдлаа.',
                         'success-transformed'      => 'Зураг амжилттай хувиргагдлаа.',

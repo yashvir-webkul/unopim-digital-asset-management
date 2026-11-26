@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Gagal memuat platform AI.',
                         'error-select-color'       => 'Silakan pilih warna latar belakang.',
                         'error-operation'          => 'Operasi gagal. Silakan coba lagi.',
+                        'error-resize-too-large'   => 'Gambar hasil ubah ukuran (:widthx:height px) terlalu besar. Setiap sisi maksimal :max px dan gambar maksimal :megapixel megapiksel.',
                         'success-updated'          => 'Gambar berhasil diperbarui.',
                         'success-adjusted'         => 'Gambar berhasil disesuaikan.',
                         'success-transformed'      => 'Gambar berhasil ditransformasi.',

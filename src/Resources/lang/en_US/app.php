@@ -432,6 +432,7 @@ return [
                         'error-platforms'          => 'Failed to load AI platforms.',
                         'error-select-color'       => 'Please select a background color.',
                         'error-operation'          => 'Operation failed. Please try again.',
+                        'error-resize-too-large'   => 'The resized image (:widthx:height px) is too large. Each side can be at most :max px and the image at most :megapixel megapixels.',
                         'success-updated'          => 'Image updated successfully.',
                         'success-adjusted'         => 'Image adjusted successfully.',
                         'success-transformed'      => 'Image transformed successfully.',

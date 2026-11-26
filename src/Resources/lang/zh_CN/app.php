@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => '加载 AI 平台失败。',
                         'error-select-color'       => '请选择背景颜色。',
                         'error-operation'          => '操作失败，请重试。',
+                        'error-resize-too-large'   => '调整后的图片（:widthx:height px）过大。每边最多 :max px，图片最多 :megapixel 百万像素。',
                         'success-updated'          => '图像已成功更新。',
                         'success-adjusted'         => '图像已成功调整。',
                         'success-transformed'      => '图像已成功变换。',

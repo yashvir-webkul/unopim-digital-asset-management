@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Impossibile caricare le piattaforme IA.',
                         'error-select-color'       => 'Selezionare un colore di sfondo.',
                         'error-operation'          => 'Operazione non riuscita. Riprova.',
+                        'error-resize-too-large'   => 'L\'immagine ridimensionata (:widthx:height px) è troppo grande. Ogni lato può essere al massimo di :max px e l\'immagine al massimo di :megapixel megapixel.',
                         'success-updated'          => 'Immagine aggiornata con successo.',
                         'success-adjusted'         => 'Immagine regolata con successo.',
                         'success-transformed'      => 'Immagine trasformata con successo.',

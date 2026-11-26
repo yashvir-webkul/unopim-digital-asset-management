@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'YZ platformları yüklenemedi.',
                         'error-select-color'       => 'Lütfen bir arka plan rengi seçin.',
                         'error-operation'          => 'İşlem başarısız oldu. Lütfen tekrar deneyin.',
+                        'error-resize-too-large'   => 'Yeniden boyutlandırılan görsel (:widthx:height px) çok büyük. Her kenar en fazla :max px, görsel en fazla :megapixel megapiksel olabilir.',
                         'success-updated'          => 'Görsel başarıyla güncellendi.',
                         'success-adjusted'         => 'Görsel başarıyla ayarlandı.',
                         'success-transformed'      => 'Görsel başarıyla dönüştürüldü.',

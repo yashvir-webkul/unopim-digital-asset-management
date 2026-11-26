@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'AIプラットフォームの読み込みに失敗しました。',
                         'error-select-color'       => '背景色を選択してください。',
                         'error-operation'          => '操作に失敗しました。もう一度お試しください。',
+                        'error-resize-too-large'   => 'リサイズ後の画像（:widthx:height px）が大きすぎます。各辺は最大 :max px、画像全体は最大 :megapixel メガピクセルまでです。',
                         'success-updated'          => '画像が正常に更新されました。',
                         'success-adjusted'         => '画像が正常に調整されました。',
                         'success-transformed'      => '画像が正常に変換されました。',

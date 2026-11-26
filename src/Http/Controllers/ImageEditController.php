@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Intervention\Image\Direction;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Encoders\AvifEncoder;
@@ -39,9 +40,11 @@ class ImageEditController
         $this->damAuthorizeAsset($id);
         $asset = Asset::findOrFail($id);
 
+        $maxDimension = (int) config('dam.image_edit.max_dimension', 10000);
+
         $validated = $request->validate([
-            'width'      => 'nullable|integer|min:1|max:50000',
-            'height'     => 'nullable|integer|min:1|max:50000',
+            'width'      => 'nullable|integer|min:1|max:'.$maxDimension,
+            'height'     => 'nullable|integer|min:1|max:'.$maxDimension,
             'crop_x'     => 'nullable|integer|min:0',
             'crop_y'     => 'nullable|integer|min:0',
             'crop_w'     => 'nullable|integer|min:1|max:50000',
@@ -86,16 +89,55 @@ class ImageEditController
         }
 
         if ($hasResize) {
-            $image->scale(
-                width: $validated['width'] ?? null,
-                height: $validated['height'] ?? null,
-            );
+            $this->assertResizeWithinLimits($image, $validated['width'] ?? null, $validated['height'] ?? null, $maxDimension);
+
+            try {
+                $image->scale(
+                    width: $validated['width'] ?? null,
+                    height: $validated['height'] ?? null,
+                );
+            } catch (\Throwable $e) {
+                Log::warning('DAM image-edit resize failed: '.$e->getMessage(), ['asset' => $asset->id]);
+
+                return response()->json(['message' => trans('dam::app.admin.dam.asset.edit.image-editor.error-operation')], 422);
+            }
         }
 
         Storage::disk($disk)->put($asset->path, $this->encode($image, $asset->extension));
         $this->clearCache($asset->path, $disk);
 
         return response()->json(['message' => trans('dam::app.admin.dam.asset.edit.image-editor.success-updated')]);
+    }
+
+    /**
+     * Rejects a resize whose aspect-preserving result would exceed the side or pixel budget, before the driver allocates it.
+     *
+     * @throws ValidationException
+     */
+    private function assertResizeWithinLimits(Image $image, ?int $width, ?int $height, int $maxDimension): void
+    {
+        $target = $image->size()->scale(width: $width, height: $height);
+        $maxPixels = (int) config('dam.image_edit.max_pixels', 40000000);
+
+        if (
+            $target->width() <= $maxDimension
+            && $target->height() <= $maxDimension
+            && $target->width() * $target->height() <= $maxPixels
+        ) {
+            return;
+        }
+
+        $message = trans('dam::app.admin.dam.asset.edit.image-editor.error-resize-too-large', [
+            'width'     => $target->width(),
+            'height'    => $target->height(),
+            'max'       => $maxDimension,
+            'megapixel' => round($maxPixels / 1000000, 1),
+        ]);
+
+        throw ValidationException::withMessages(array_fill_keys(
+            array_keys(array_filter(['width' => $width, 'height' => $height])),
+            $message,
+        ));
     }
 
     public function adjust(Request $request, int $id): JsonResponse

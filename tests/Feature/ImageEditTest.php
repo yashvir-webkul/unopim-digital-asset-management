@@ -557,3 +557,33 @@ it('rejects a chat model for a background edit on a platform without image model
 
     AiImageFacade::assertNothingGenerated();
 });
+
+it('should return 422 instead of 500 when resize dimensions are too large', function () {
+    $asset = imageAsset($this->disk);
+    $original = Storage::disk($this->disk)->get($asset->path);
+
+    $this->postJson(route('admin.dam.assets.image_edit.resize', $asset->id), [
+        'width'  => 50000,
+        'height' => 50000,
+    ])->assertUnprocessable()
+        ->assertJsonValidationErrors(['width', 'height']);
+
+    expect(Storage::disk($this->disk)->get($asset->path))->toBe($original);
+});
+
+it('should return 422 when a single resize dimension would produce a too large image', function () {
+    $asset = imageAsset($this->disk);
+
+    $this->postJson(route('admin.dam.assets.image_edit.resize', $asset->id), [
+        'width' => 10000,
+    ])->assertUnprocessable()
+        ->assertJsonValidationErrors(['width']);
+});
+
+it('should resize up to the configured maximum dimension', function () {
+    $asset = imageAsset($this->disk);
+
+    $this->postJson(route('admin.dam.assets.image_edit.resize', $asset->id), [
+        'width' => 1000,
+    ])->assertOk();
+});

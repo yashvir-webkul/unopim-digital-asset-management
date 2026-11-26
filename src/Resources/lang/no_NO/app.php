@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Kunne ikke laste AI-plattformer.',
                         'error-select-color'       => 'Velg en bakgrunnsfarge.',
                         'error-operation'          => 'Operasjonen mislyktes. Vennligst prøv igjen.',
+                        'error-resize-too-large'   => 'Det skalerte bildet (:widthx:height px) er for stort. Hver side kan være maks :max px og bildet maks :megapixel megapiksler.',
                         'success-updated'          => 'Bilde oppdatert.',
                         'success-adjusted'         => 'Bilde justert.',
                         'success-transformed'      => 'Bilde transformert.',

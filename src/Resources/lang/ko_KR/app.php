@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'AI 플랫폼을 로드하지 못했습니다.',
                         'error-select-color'       => '배경색을 선택하세요.',
                         'error-operation'          => '작업이 실패했습니다. 다시 시도하세요.',
+                        'error-resize-too-large'   => '크기 조정된 이미지(:widthx:height px)가 너무 큽니다. 각 변은 최대 :max px, 이미지는 최대 :megapixel 메가픽셀까지 가능합니다.',
                         'success-updated'          => '이미지가 성공적으로 업데이트되었습니다.',
                         'success-adjusted'         => '이미지가 성공적으로 조정되었습니다.',
                         'success-transformed'      => '이미지가 성공적으로 변환되었습니다.',

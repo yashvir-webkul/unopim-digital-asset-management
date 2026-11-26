@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Učitavanje AI platformi nije uspjelo.',
                         'error-select-color'       => 'Odaberite boju pozadine.',
                         'error-operation'          => 'Operacija nije uspjela. Pokušajte ponovo.',
+                        'error-resize-too-large'   => 'Promijenjena slika (:widthx:height px) je prevelika. Svaka stranica može imati najviše :max px, a slika najviše :megapixel megapiksela.',
                         'success-updated'          => 'Slika uspješno ažurirana.',
                         'success-adjusted'         => 'Slika uspješno prilagođena.',
                         'success-transformed'      => 'Slika uspješno transformirana.',

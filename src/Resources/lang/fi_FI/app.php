@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Tekoälyalustojen lataaminen epäonnistui.',
                         'error-select-color'       => 'Valitse taustaväri.',
                         'error-operation'          => 'Toiminto epäonnistui. Yritä uudelleen.',
+                        'error-resize-too-large'   => 'Skaalattu kuva (:widthx:height px) on liian suuri. Kunkin sivun enimmäiskoko on :max px ja kuvan enintään :megapixel megapikseliä.',
                         'success-updated'          => 'Kuva päivitetty onnistuneesti.',
                         'success-adjusted'         => 'Kuva säädetty onnistuneesti.',
                         'success-transformed'      => 'Kuva muunnettu onnistuneesti.',

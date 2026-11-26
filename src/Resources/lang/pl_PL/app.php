@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Nie udało się załadować platform AI.',
                         'error-select-color'       => 'Wybierz kolor tła.',
                         'error-operation'          => 'Operacja nie powiodła się. Spróbuj ponownie.',
+                        'error-resize-too-large'   => 'Przeskalowany obraz (:widthx:height px) jest zbyt duży. Każdy bok może mieć maksymalnie :max px, a obraz maksymalnie :megapixel megapikseli.',
                         'success-updated'          => 'Obraz zaktualizowany pomyślnie.',
                         'success-adjusted'         => 'Obraz dostosowany pomyślnie.',
                         'success-transformed'      => 'Obraz przekształcony pomyślnie.',

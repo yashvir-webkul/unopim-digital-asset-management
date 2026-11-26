@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Không thể tải nền tảng AI.',
                         'error-select-color'       => 'Vui lòng chọn màu nền.',
                         'error-operation'          => 'Thao tác thất bại. Vui lòng thử lại.',
+                        'error-resize-too-large'   => 'Ảnh sau khi đổi kích thước (:widthx:height px) quá lớn. Mỗi cạnh tối đa :max px và ảnh tối đa :megapixel megapixel.',
                         'success-updated'          => 'Ảnh đã được cập nhật thành công.',
                         'success-adjusted'         => 'Ảnh đã được điều chỉnh thành công.',
                         'success-transformed'      => 'Ảnh đã được chuyển đổi thành công.',

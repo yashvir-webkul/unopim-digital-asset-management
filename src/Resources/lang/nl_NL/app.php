@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Laden van AI-platforms mislukt.',
                         'error-select-color'       => 'Selecteer een achtergrondkleur.',
                         'error-operation'          => 'Bewerking mislukt. Probeer het opnieuw.',
+                        'error-resize-too-large'   => 'De geschaalde afbeelding (:widthx:height px) is te groot. Elke zijde mag maximaal :max px zijn en de afbeelding maximaal :megapixel megapixel.',
                         'success-updated'          => 'Afbeelding succesvol bijgewerkt.',
                         'success-adjusted'         => 'Afbeelding succesvol aangepast.',
                         'success-transformed'      => 'Afbeelding succesvol getransformeerd.',

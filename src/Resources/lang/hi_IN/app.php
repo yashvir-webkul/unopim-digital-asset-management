@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'AI प्लेटफॉर्म लोड करने में विफल।',
                         'error-select-color'       => 'कृपया एक पृष्ठभूमि रंग चुनें।',
                         'error-operation'          => 'ऑपरेशन विफल रहा। कृपया पुनः प्रयास करें।',
+                        'error-resize-too-large'   => 'आकार बदली गई छवि (:widthx:height px) बहुत बड़ी है। प्रत्येक भुजा अधिकतम :max px और छवि अधिकतम :megapixel मेगापिक्सेल हो सकती है।',
                         'success-updated'          => 'छवि सफलतापूर्वक अपडेट हुई।',
                         'success-adjusted'         => 'छवि सफलतापूर्वक समायोजित हुई।',
                         'success-transformed'      => 'छवि सफलतापूर्वक रूपांतरित हुई।',

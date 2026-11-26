@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'No s\'han pogut carregar les plataformes d\'IA.',
                         'error-select-color'       => 'Seleccioneu un color de fons.',
                         'error-operation'          => 'L\'operació ha fallat. Torneu-ho a provar.',
+                        'error-resize-too-large'   => 'La imatge redimensionada (:widthx:height px) és massa gran. Cada costat pot tenir com a màxim :max px i la imatge com a màxim :megapixel megapíxels.',
                         'success-updated'          => 'Imatge actualitzada correctament.',
                         'success-adjusted'         => 'Imatge ajustada correctament.',
                         'success-transformed'      => 'Imatge transformada correctament.',

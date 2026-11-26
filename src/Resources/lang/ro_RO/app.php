@@ -430,6 +430,7 @@ return [
                         'error-platforms'          => 'Încărcarea platformelor AI a eșuat.',
                         'error-select-color'       => 'Selectați o culoare de fundal.',
                         'error-operation'          => 'Operațiunea a eșuat. Vă rugăm să încercați din nou.',
+                        'error-resize-too-large'   => 'Imaginea redimensionată (:widthx:height px) este prea mare. Fiecare latură poate avea cel mult :max px, iar imaginea cel mult :megapixel megapixeli.',
                         'success-updated'          => 'Imaginea a fost actualizată cu succes.',
                         'success-adjusted'         => 'Imaginea a fost ajustată cu succes.',
                         'success-transformed'      => 'Imaginea a fost transformată cu succes.',
