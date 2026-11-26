@@ -200,3 +200,16 @@ it('does not count a download when the asset is opened inline', function () {
 
     expect($share->fresh()->download_count)->toBe(0);
 });
+
+it('returns 404 instead of 500 for an asset id too big for an integer on public share routes', function (string $path) {
+    $directory = Directory::factory()->create();
+    $share = Share::factory()->forDirectory($directory->id)->create();
+
+    foreach ([$share->token, str_repeat('a', 40)] as $token) {
+        $this->get('/share/'.$token.sprintf($path, '99999999999999999999'))->assertNotFound();
+    }
+})->with([
+    'asset view'     => ['/asset/%s'],
+    'asset download' => ['/asset/%s/download'],
+    'thumbnail'      => ['/thumb/%s'],
+]);
