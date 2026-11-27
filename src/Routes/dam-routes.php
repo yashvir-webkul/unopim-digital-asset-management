@@ -51,7 +51,7 @@ Route::group([
 
         });
 
-        Route::controller(UploadController::class)->prefix('upload')->where(['uuid' => '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}'])->group(function () {
+        Route::controller(UploadController::class)->prefix('upload')->where(['uuid' => '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}'])->group(function (): void {
             Route::post('/tracker', 'startSession')->name('admin.dam.assets.upload.tracker');
             Route::get('/stats/{uuid}', 'stats')->name('admin.dam.assets.upload.stats');
             Route::post('/pause/{uuid}', 'pause')->name('admin.dam.assets.upload.pause');

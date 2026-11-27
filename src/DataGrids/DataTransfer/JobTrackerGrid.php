@@ -12,7 +12,7 @@ use Webkul\DAM\Services\AiTaggingJobTrackerService;
  */
 class JobTrackerGrid extends BaseJobTrackerGrid
 {
-    public function prepareColumns()
+    public function prepareColumns(): void
     {
         parent::prepareColumns();
 

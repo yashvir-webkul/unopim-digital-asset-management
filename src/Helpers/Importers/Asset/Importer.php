@@ -145,9 +145,7 @@ class Importer extends AbstractImporter
             return false;
         }
 
-        if ($this->import->action !== Import::ACTION_DELETE && $this->decodeProperties($rowData) === null) {
-            $this->skipRow($rowNumber, self::ERROR_PROPERTIES_INVALID, 'properties', trans($this->messages[self::ERROR_PROPERTIES_INVALID]));
-
+        if ($this->import->action !== Import::ACTION_DELETE && $this->rejectInvalidProperties($rowData, $rowNumber)) {
             return false;
         }
 
@@ -248,14 +246,12 @@ class Importer extends AbstractImporter
                     continue;
                 }
 
-                if ($this->decodeProperties($rowData) === null) {
-                    $this->skipRow($rowNumber, self::ERROR_PROPERTIES_INVALID, 'properties', trans($this->messages[self::ERROR_PROPERTIES_INVALID]));
-
+                if ($this->rejectInvalidProperties($rowData, $rowNumber)) {
                     continue;
                 }
 
                 if ($existing && $conflictStrategy === 'update_metadata') {
-                    $result = $this->ingestRow(fn () => $this->ingestionService->ingest(
+                    $result = $this->ingestRow(fn (): IngestResult => $this->ingestionService->ingest(
                         localPath: '',
                         damPath: $damPath,
                         fileName: $fileName,
@@ -284,7 +280,7 @@ class Importer extends AbstractImporter
                     continue;
                 }
 
-                $result = $this->ingestRow(fn () => $this->ingestionService->ingest(
+                $result = $this->ingestRow(fn (): IngestResult => $this->ingestionService->ingest(
                     localPath: $localPath,
                     damPath: $damPath,
                     fileName: $fileName,
@@ -504,6 +500,20 @@ class Importer extends AbstractImporter
         }
 
         return $properties;
+    }
+
+    /**
+     * Record a properties_invalid row error when the "properties" column cannot be decoded.
+     */
+    protected function rejectInvalidProperties(array $rowData, int $rowNumber): bool
+    {
+        if ($this->decodeProperties($rowData) !== null) {
+            return false;
+        }
+
+        $this->skipRow($rowNumber, self::ERROR_PROPERTIES_INVALID, 'properties', trans($this->messages[self::ERROR_PROPERTIES_INVALID]));
+
+        return true;
     }
 
     protected function applyProperties(Asset $asset, array $rowData): void

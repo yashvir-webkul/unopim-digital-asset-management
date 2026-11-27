@@ -126,6 +126,8 @@ it('errors a single row that throws unexpectedly and still processes the rest of
     {
         public function __construct() {}
 
+        public function forgetResolvedDirectories(): void {}
+
         public function ingest(string $localPath, string $damPath, ?string $fileName, string $conflictStrategy, bool $autoTag, array $extraDirectoryNames = []): IngestResult
         {
             if (str_contains($damPath, 'boom')) {

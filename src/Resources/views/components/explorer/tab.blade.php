@@ -1,5 +1,6 @@
 @once('v-dam-tab')
 @include('dam::components.explorer.folder-picker')
+@include('dam::components.directory.zip-download-script')
 @push('scripts')
 <script type="text/x-template" id="v-dam-tab-template">
     <div class="relative flex flex-col flex-1 min-h-0 overflow-hidden p-4 gap-3">
@@ -1069,14 +1070,7 @@ app.component('v-dam-tab', {
         downloadCurrentDir() {
             if (! this.currentDirId) return;
 
-            const url = `{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.currentDirId);
-
-            this.$axios.get(url)
-                .then(() => { window.location.href = url; })
-                .catch(e => this.$emitter.emit('add-flash', {
-                    type: e?.response?.status === 422 ? 'warning' : 'error',
-                    message: e?.response?.data?.message ?? "@lang('dam::app.admin.dam.index.directory.failed-download-directory')",
-                }));
+            window.damDownloadDirectoryZip(this, this.currentDirId);
         },
 
         shareCurrentDir() {

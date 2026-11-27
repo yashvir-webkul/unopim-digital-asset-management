@@ -9,9 +9,6 @@ use Webkul\DAM\Http\Controllers\API\Asset\PropertyController;
 use Webkul\DAM\Http\Controllers\API\Asset\ShareController;
 use Webkul\DAM\Http\Controllers\API\Asset\TagController;
 
-/**
- * Ids are capped at 18 digits so every accepted value fits an int parameter and a bigint key; anything else is a 404, not a TypeError.
- */
 Route::group([
     'middleware' => [
         'auth:api',

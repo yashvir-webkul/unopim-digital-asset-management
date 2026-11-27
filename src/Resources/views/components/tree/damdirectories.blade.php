@@ -13,6 +13,8 @@
     </v-dam-tree-view>
 </div>
 
+@include('dam::components.directory.zip-download-script')
+
 @pushOnce('scripts')
 <script type="text/x-template" id="v-asset-item-template">
     <div
@@ -1693,14 +1695,7 @@
 
             downloadItem(type = 'directory', ) {
                 if (type == 'directory') {
-                    const zipLink = `{{ route('admin.dam.directory.zip_download', ':id') }}`.replace(':id', this.selectedItem.id);
-
-                    this.$axios.get(zipLink)
-                        .then(() => { window.location.href = zipLink; })
-                        .catch(e => this.$emitter.emit('add-flash', {
-                            type: e?.response?.status === 422 ? 'warning' : 'error',
-                            message: e?.response?.data?.message ?? "@lang('dam::app.admin.dam.index.directory.failed-download-directory')",
-                        }));
+                    window.damDownloadDirectoryZip(this, this.selectedItem.id);
 
                     return;
                 }

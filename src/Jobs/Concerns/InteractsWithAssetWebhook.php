@@ -88,7 +88,8 @@ trait InteractsWithAssetWebhook
 
     /**
      * Deliver and log one webhook call. Throws on a failed delivery so the
-     * queue retries the job up to $tries and then moves it to failed_jobs.
+     * queue retries the job up to $tries and then moves it to failed_jobs. The sync
+     * driver cannot retry, so there a failure is only logged and the asset save proceeds.
      *
      * @param  array<string, mixed>  $payload
      *
@@ -137,7 +138,6 @@ trait InteractsWithAssetWebhook
             ],
         ]);
 
-        // The sync driver cannot retry; throwing there would only break the asset save.
         if ($status === 0 && ! $this->job instanceof SyncJob) {
             throw new WebhookDeliveryFailedException(
                 sprintf('Asset webhook #%d delivery failed for event "%s" (HTTP %s).', $webhook->id, $this->event, $httpCode ?? 'n/a'),

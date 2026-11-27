@@ -196,8 +196,10 @@ class DirectoryRepository extends Repository
         Storage::disk($disk)->makeDirectory($newDirectory);
 
         Asset::where('path', 'like', str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $oldDirectory).'/%')
-            ->pluck('path')
-            ->each(function (string $path) use ($disk, $oldDirectory, $newDirectory): void {
+            ->select(['id', 'path'])
+            ->lazyById(500)
+            ->each(function (Asset $asset) use ($disk, $oldDirectory, $newDirectory): void {
+                $path = $asset->path;
                 $target = $newDirectory.substr($path, strlen($oldDirectory));
 
                 if (Storage::disk($disk)->exists($path) && ! Storage::disk($disk)->exists($target)) {

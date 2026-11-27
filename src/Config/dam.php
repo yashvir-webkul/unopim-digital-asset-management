@@ -58,10 +58,6 @@ return [
     ],
 
     'image_edit' => [
-        /*
-         * Largest output side (px) and total pixel count the image editor resize accepts;
-         * keeps the GD driver from failing or exhausting memory on huge targets.
-         */
         'max_dimension' => (int) env('DAM_IMAGE_EDIT_MAX_DIMENSION', 10000),
         'max_pixels'    => (int) env('DAM_IMAGE_EDIT_MAX_PIXELS', 40000000),
 

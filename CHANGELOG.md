@@ -16,11 +16,20 @@
 
 * `/api/v1/rest/assets/edit/{id}` is now `GET`-only, since it only reads data. `PUT` returns `405 Method Not Allowed` instead of reporting a save that never happened; use `PUT /api/v1/rest/assets/{id}` to update an asset.
 
+* Deleting an asset that is still linked to products or categories now returns `409 Conflict` instead of `404 Not Found`, from the admin delete, the mass delete and `DELETE /api/v1/rest/assets/{id}`. API clients that checked for `404` should check for `409`.
+
+* **Webhook retries** — A failed asset webhook delivery (non-2xx or unreachable endpoint) is now retried up to 3 times by the queue worker and then recorded in `failed_jobs`. Each subscribed webhook is delivered as its own job, so a retry never re-sends to endpoints that already succeeded. With the `sync` queue driver a failure is only logged.
+
+* **Image editor limits** — Resizing is capped by two new settings, `DAM_IMAGE_EDIT_MAX_DIMENSION` (largest side in px, default `10000`) and `DAM_IMAGE_EDIT_MAX_PIXELS` (total pixels, default `40000000`). A resize above either limit returns `422` with a message instead of failing with a server error.
+
+* API upload by URL (`files[]=<url>`) now enforces the same maximum file size as a normal upload and removes its temporary files afterwards.
+
 ### Security
 
 * Asset import now respects folder permissions: a user can only import into folders their role is allowed to use, and all imported folders are placed under the main Root folder.
 * Asset export now scopes results (and, with media, their binaries) to the user's viewable directories, and the export filter option lists are permission-scoped.
 * Hardened the server-file import source against path traversal.
+* Folder names `.` and `..` are now refused, and storage operations skip paths containing such segments, so renaming or deleting a folder can no longer touch its parent folder's files.
 
 ### Bug Fixes
 
@@ -33,6 +42,16 @@
 * Background image editing excludes generation-only models (such as `dall-e-3`) that cannot edit an attached image, and the AI-prompt issue on the edit page is fixed.
 * Fixed the invisible border on the tag input box.
 * Pending AI-tagging state is now tracked per job, so the UI stops polling only once every tagging job settles and bulk runs no longer stay stuck processing.
+* Saving a product or category in one locale or channel no longer unlinks assets that other locales or channels still use.
+* Category asset values sent as a list no longer cause a server error in the API or the category export.
+* Non-numeric or oversized ids on the DAM API, public share and upload-tracker routes now return `404` instead of a server error.
+* A non-string `disposition` query value on public share downloads now falls back to `attachment` instead of causing a server error.
+* Renaming an asset whose full path would exceed 255 characters now returns a validation error, and a failed rename moves the file back.
+* Each asset import row is now all-or-nothing: if any step fails, its asset, tags, properties and stored file are rolled back so the row can be imported again.
+* An invalid `properties` JSON value in an asset import is now reported as a row error instead of being silently ignored.
+* Downloading an empty folder as a ZIP now shows a message instead of reloading the page.
+* AI tagging of a multi-image upload now appears as a single Job Tracker entry, labelled as a DAM asset job.
+* The Documents bar and dot on the DAM dashboard are visible again.
 
 ## Version 3.1.1
 

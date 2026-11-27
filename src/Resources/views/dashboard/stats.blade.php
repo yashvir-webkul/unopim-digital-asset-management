@@ -15,7 +15,7 @@
             'document' => ['label' => trans('dam::app.dashboard.types.document'), 'color' => 'rgb(var(--c-primary-300))'],
         ];
 
-        $damFallbackColor = 'rgb(161 161 170)';
+        $damFallbackColor = 'var(--chart-muted)';
     @endphp
 
     <div class="flex items-center justify-between gap-3 mt-4 mb-4">

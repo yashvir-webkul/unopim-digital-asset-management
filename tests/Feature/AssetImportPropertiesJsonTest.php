@@ -28,9 +28,8 @@ function propsJsonImporter(): array
     $importer = app(Importer::class);
     $importer->setImport($jobTrack);
     $importer->setErrorHelper($errors = app(Error::class));
-    test()->propsErrorHelper = $errors;
 
-    return [$importer, $jobTrack];
+    return [$importer, $jobTrack, $errors];
 }
 
 function propsJsonRow(string $properties, string $fileName = 'props-test.png'): array
@@ -38,9 +37,9 @@ function propsJsonRow(string $properties, string $fileName = 'props-test.png'): 
     return ['path' => 'logo.png', 'directory' => 'Root', 'file_name' => $fileName, 'tags' => '', 'properties' => $properties];
 }
 
-function propsJsonErrors(Importer $importer, int $row): array
+function propsJsonErrors(Error $errors, int $row): array
 {
-    return test()->propsErrorHelper->getAllErrors()[$row] ?? [];
+    return $errors->getAllErrors()[$row] ?? [];
 }
 
 beforeEach(function () {
@@ -52,11 +51,11 @@ beforeEach(function () {
 });
 
 it('reports a row whose properties column is not valid json', function (string $properties) {
-    [$importer] = propsJsonImporter();
+    [$importer, , $errorHelper] = propsJsonImporter();
 
     expect($importer->validateRow(propsJsonRow($properties), 2))->toBeFalse();
 
-    $errors = propsJsonErrors($importer, 2);
+    $errors = propsJsonErrors($errorHelper, 2);
 
     expect($errors)->toHaveCount(1)
         ->and($errors[0]['code'])->toBe(Importer::ERROR_PROPERTIES_INVALID)
@@ -71,10 +70,10 @@ it('reports a row whose properties column is not valid json', function (string $
 ]);
 
 it('accepts a row with valid or empty properties', function (string $properties) {
-    [$importer] = propsJsonImporter();
+    [$importer, , $errorHelper] = propsJsonImporter();
 
     expect($importer->validateRow(propsJsonRow($properties), 2))->toBeTrue()
-        ->and(propsJsonErrors($importer, 2))->toBe([]);
+        ->and(propsJsonErrors($errorHelper, 2))->toBe([]);
 })->with([
     'empty'      => [''],
     'empty list' => ['[]'],
@@ -82,7 +81,7 @@ it('accepts a row with valid or empty properties', function (string $properties)
 ]);
 
 it('does not import a row with invalid properties json that reaches the import step', function () {
-    [$importer, $jobTrack] = propsJsonImporter();
+    [$importer, $jobTrack, $errorHelper] = propsJsonImporter();
 
     $importer->importBatch(JobTrackBatch::factory()->create([
         'job_track_id' => $jobTrack->id,
@@ -97,7 +96,7 @@ it('does not import a row with invalid properties json that reaches the import s
     expect(Asset::where('file_name', 'bad-props.png')->exists())->toBeFalse()
         ->and($importer->getCreatedItemsCount())->toBe(1)
         ->and(AssetProperty::where('dam_asset_id', $good->id)->where('name', 'Colour')->value('value'))->toBe('Red')
-        ->and(collect(propsJsonErrors($importer, 1))->pluck('code')->all())->toBe([Importer::ERROR_PROPERTIES_INVALID]);
+        ->and(collect(propsJsonErrors($errorHelper, 1))->pluck('code')->all())->toBe([Importer::ERROR_PROPERTIES_INVALID]);
 
     Storage::disk(Directory::getAssetDisk())->assertMissing('assets/Root/bad-props.png');
 });

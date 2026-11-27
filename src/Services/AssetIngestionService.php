@@ -119,9 +119,7 @@ class AssetIngestionService
      */
     public function forgetResolvedDirectories(): void
     {
-        if (isset($this->pathResolver)) {
-            $this->pathResolver->forget();
-        }
+        $this->pathResolver->forget();
     }
 
     protected function makeUploadedFile(string $localPath, string $originalName): UploadedFile

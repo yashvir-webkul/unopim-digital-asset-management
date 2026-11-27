@@ -3,8 +3,10 @@
 namespace Webkul\DAM\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\DAM\Enums\EventType;
 use Webkul\DAM\Http\Controllers\Concerns\StreamsZipDownload;
@@ -416,7 +418,7 @@ class DirectoryController
      * Stream a ZIP of the directory subtree. AJAX callers get a JSON pre-check
      * (422 with a message when empty, 200 when ready) so the page never reloads.
      */
-    public function downloadArchive(Request $request, int $id)
+    public function downloadArchive(Request $request, int $id): JsonResponse|RedirectResponse|StreamedResponse
     {
         if (! $this->permissionService->canAccess($id)) {
             abort(403, trans('dam::app.admin.permissions.unauthorized'));
